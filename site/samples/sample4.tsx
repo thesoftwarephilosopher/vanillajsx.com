@@ -1,6 +1,4 @@
-import { getData } from "../helpers.js";
-
-const groups = await getData();
+import { data } from "../fetch-dataset.js";
 
 export default function FindNames() {
   const status = <p style='margin:1em 0' /> as HTMLParagraphElement;
@@ -11,7 +9,7 @@ export default function FindNames() {
   /> as HTMLInputElement;
 
   const updateMatches = () => {
-    const matched = (groups.entries()
+    const matched = (data.entries()
       .filter(g => g[0].match(input.value))
       .toArray());
 
@@ -21,7 +19,7 @@ export default function FindNames() {
       .toArray());
 
     list.replaceChildren(...matches);
-    status.textContent = `${matched.length} / ${groups.size}`;
+    status.textContent = `${matched.length} / ${data.size}`;
   };
 
   input.oninput = updateMatches;
