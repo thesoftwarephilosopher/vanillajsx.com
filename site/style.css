@@ -31,6 +31,16 @@ a:hover {
   text-underline-offset: 5px;
 }
 
+.sample4 p {
+  font-size: small;
+  padding-left: 0.5em;
+}
+
+.sample4 ul {
+  padding-left: 0.5em;
+  list-style-type: none;
+}
+
 .sample pre.shiki {
   /* ugh cant figure out their api; this will do for now */
   background-color: transparent !important;

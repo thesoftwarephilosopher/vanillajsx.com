@@ -24,7 +24,11 @@ export default function FindNames() {
   input.oninput = updateMatches;
   updateMatches();
 
-  return <>{input}{status}{results}</>;
+  return <div class='sample4'>
+    {input}
+    {status}
+    {results}
+  </div>;
 }
 
 function Item(attrs: { match: [string, number], regex: string }) {
