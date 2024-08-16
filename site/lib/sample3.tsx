@@ -1,5 +1,6 @@
 function TodoInput(attrs: { add: (v: string) => void }) {
   const input = <input /> as HTMLInputElement;
+  input.placeholder = 'Add todo item...';
   input.onkeydown = (e) => {
     if (e.key === 'Enter') {
       attrs.add(input.value);
@@ -10,7 +11,7 @@ function TodoInput(attrs: { add: (v: string) => void }) {
 }
 
 class List {
-  ul = <ul /> as HTMLUListElement;
+  ul = <ul class='todolist' /> as HTMLUListElement;
   add(v: string) {
     const item = <li>{v}</li> as HTMLLIElement;
     item.onclick = () => item.remove();
@@ -20,6 +21,8 @@ class List {
 
 export default () => {
   const list = new List();
+  list.add('foo');
+  list.add('bar');
   return <>
     <TodoInput add={(v) => list.add(v)} />
     {list.ul}
