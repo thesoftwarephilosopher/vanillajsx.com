@@ -1,8 +1,5 @@
-export default function ClickMe() {
-  let i = 0;
+export default function Hello() {
   return (
-    <button onclick={function (this: HTMLElement) {
-      this.textContent = `Clicked ${++i} times`;
-    }}>Click me</button>
+    <>Hello <i>world</i></>
   );
 }

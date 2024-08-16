@@ -22,10 +22,6 @@ a {
   box-sizing: border-box;
 }
 
-.sample-code .hljs {
-  background: unset;
-}
-
 .list {
   padding-left: 0;
   list-style-type: none;
