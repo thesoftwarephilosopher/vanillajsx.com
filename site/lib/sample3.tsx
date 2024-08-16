@@ -1,18 +1,29 @@
-import ClickMe from "./sample1.js";
+function TodoInput(attrs: { add: (v: string) => void }) {
+  const input = <input /> as HTMLInputElement;
+  input.onkeydown = (e) => {
+    if (e.key === 'Enter') {
+      attrs.add(input.value);
+      input.value = '';
+    }
+  };
+  return input;
+}
 
-const Colorize = (attrs: { color?: string }, children: any) => {
-  return <span style={`color: ${attrs.color ?? '#91f'}`}>
-    {children}
-  </span>;
+class List {
+  ul = <ul /> as HTMLUListElement;
+  add(v: string) {
+    const item = <li>{v}</li> as HTMLLIElement;
+    item.onclick = () => item.remove();
+    this.ul.append(item);
+  }
+}
+
+export default () => {
+  const list = new List();
+  return <>
+    <TodoInput add={(v) => list.add(v)} />
+    {list.ul}
+  </>;
 };
 
-// export default function ManyColors() {
-//   return <>
-//     <p><Colorize>normal</Colorize></p>
-//     <p><Colorize color="green">green</Colorize></p>
-//   </>;
-// }
-
-export default () => <>
-  <p><ClickMe /></p>
-</>;
+// Fuller example at https://sdegutis.github.io/imlib-todolist/
