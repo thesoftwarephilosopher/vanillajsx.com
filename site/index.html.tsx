@@ -37,6 +37,11 @@ export default <>
         <Q>It was created because the status quo wasn't good enough for my site.</Q>
         <Q>It is now my favorite way to make apps.</Q>
         <Q>(Also, here's a much better <a href="https://sdegutis.github.io/imlib-todolist/">imlib todo-list app</a> (<a href="https://github.com/sdegutis/imlib-todolist/blob/main/site/app.tsx">src</a>)).</Q>
+        <Q>The two most complex "interactive apps" I've built with this are:</Q>
+        <ul>
+          <li><a href="https://www.immaculatalibrary.com/books.html">Books search page</a> (<a href="https://github.com/sdegutis/immaculatalibrary.com/blob/main/site/scripts/books-page.tsx">src</a>)</li>
+          <li><a href="https://www.immaculatalibrary.com/prayers/">Prayer page</a> (<a href="https://github.com/sdegutis/immaculatalibrary.com/blob/main/site/prayers/client.tsx">src</a>)</li>
+        </ul>
       </div>
 
     </body>
