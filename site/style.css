@@ -66,6 +66,7 @@ a:hover {
 
 .sample {
   display: flex;
+  flex-wrap: wrap;
   gap: 1em;
 }
 
