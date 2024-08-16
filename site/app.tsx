@@ -1,11 +1,15 @@
 import monaco from '@imlib/monaco-esm';
 
 document.querySelector('#root')?.replaceChildren(<>
-  <h3>A case for vanilla JSX</h3>
+  <h1>A case for vanilla JSX</h1>
+
   <p>What if JSX just returned DOM elements?</p>
   <ShowSample which="sample1" />
+
   <p>Could they still by dynamic?</p>
   <ShowSample which="sample2" />
+
+  <p>That's why I wrote <a href='https://code.immaculatalibrary.com/'>imlib</a></p>
 </>);
 
 function ShowSample(attrs: { which: string }) {

@@ -9,9 +9,19 @@ body {
   margin: 3em auto;
 }
 
+p {
+  font-weight: bold;
+  margin-top: 3em;
+}
+
 a {
   color: #478be6;
   text-underline-offset: 3px;
+  transition: text-underline-offset 200ms ease-in-out;
+}
+
+a:hover {
+  text-underline-offset: 5px;
 }
 
 .sample-code,
@@ -20,11 +30,6 @@ a {
   border-radius: 7px;
   padding: 1em;
   box-sizing: border-box;
-}
-
-.list {
-  padding-left: 0;
-  list-style-type: none;
 }
 
 button,
@@ -43,66 +48,7 @@ button {
   cursor: pointer;
 }
 
-input.next {
-  width: 100%;
-  box-sizing: border-box;
-}
-
 input:not([type=checkbox]):focus,
 button:active {
   outline-color: #19f;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-}
-
-.item:hover {
-  background-color: color-mix(in srgb, #22272e, black 20%);
-}
-
-.item input[type=checkbox] {
-  margin-left: 0.5em;
-  margin-right: 0.5em;
-}
-
-.item input[type=checkbox]:not(:checked) {
-  outline-color: #19f;
-}
-
-.item span {
-  flex: 1 0 auto;
-}
-
-.item.done span {
-  text-decoration: line-through #f00c 7px;
-
-}
-
-.item>:is(span, input) {
-  cursor: pointer;
-}
-
-.item.done span {
-  opacity: .5;
-}
-
-.item button.close:not(:hover) {
-  border: none;
-  outline: none;
-  background-color: inherit;
-}
-
-.actions {
-  background-color: #1c2128;
-  padding: 0.75em;
-  margin: 1em 0;
-  font-size: small;
-  display: flex;
-  justify-content: space-between;
-}
-
-.actions a.action-button:not(:hover) {
-  text-decoration: none;
 }
