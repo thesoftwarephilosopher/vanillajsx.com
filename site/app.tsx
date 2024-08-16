@@ -1,0 +1,2 @@
+document.querySelector('#root')?.replaceChildren(<>
+</>);
