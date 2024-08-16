@@ -7,7 +7,7 @@ export default <>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel='stylesheet' href='style.css' />
-      <script type='module' src='app.js' />
+      <script type='module' src='client.js' />
       <title>Vanilla JSX</title>
     </head>
     <body>
@@ -22,7 +22,7 @@ export default <>
         <Q>Could they keep their own state?</Q>
         <Sample which="sample2" />
 
-        <Q>How would they interact?</Q>
+        <Q>How would they work together?</Q>
         <Q>Could they create an interactive DOM tree?</Q>
         <Sample which="sample3" />
 
