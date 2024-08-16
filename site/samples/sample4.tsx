@@ -10,7 +10,7 @@ export default function FindNames() {
 
   const updateMatches = () => {
     const matched = (data.entries()
-      .filter(g => g[0].match(input.value))
+      .filter(([k]) => k.match(input.value))
       .toArray());
 
     const matches = (Iterator.from(matched)
@@ -27,11 +27,11 @@ export default function FindNames() {
   return <>{input}{status}{results}</>;
 }
 
-function Item(attrs: { match: [string, any[]], regex: string }) {
-  const [name, group] = attrs.match;
-  const count = <small style='color:#fff3'>({group.length})</small>;
+function Item(attrs: { match: [string, number], regex: string }) {
+  const [name, count] = attrs.match;
+  const total = <small style='color:#fff3'>({count})</small>;
   return <li>
-    <span innerHTML={highlight(name, attrs.regex)} /> {count}
+    <span innerHTML={highlight(name, attrs.regex)} /> {total}
   </li>;
 }
 
