@@ -5,7 +5,7 @@ body {
 }
 
 #root {
-  max-width: 40em;
+  max-width: 50em;
   margin: 3em auto;
 }
 
@@ -49,13 +49,19 @@ a:hover {
 
 .sample-code,
 .sample-output {
-  flex: 1 0 auto;
   margin: 0;
-
   background-color: #0003;
   border-radius: 7px;
   padding: 1em;
   box-sizing: border-box;
+}
+
+.sample-code {
+  flex: 1 0 auto;
+}
+
+.sample-output {
+  flex: 0 0 14em;
 }
 
 button,

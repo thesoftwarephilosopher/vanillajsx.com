@@ -26,7 +26,7 @@ function Sample(attrs: { which: string }) {
   const div = <div class='sample'>
     <pre class='sample-code'>
       <p>
-        <a href={`https://github.com/sdegutis/vanillajsx.com/blob/main/site/lib/${attrs.which}.tsx`}>
+        <a target='_blank' href={`https://github.com/sdegutis/vanillajsx.com/blob/main/site/lib/${attrs.which}.tsx`}>
           View source
         </a>
       </p>
