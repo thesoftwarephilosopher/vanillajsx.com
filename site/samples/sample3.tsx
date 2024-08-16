@@ -10,7 +10,7 @@ function TodoInput(attrs: { add: (v: string) => void }) {
   return input;
 }
 
-class List {
+class TodoList {
   ul = <ul class='todolist' /> as HTMLUListElement;
   add(v: string) {
     const item = <li>{v}</li> as HTMLLIElement;
@@ -20,7 +20,7 @@ class List {
 }
 
 export default () => {
-  const list = new List();
+  const list = new TodoList();
   list.add('foo');
   list.add('bar');
   return <>
