@@ -30,7 +30,12 @@ export default <>
         <Q>Could they be convenient without a virtual dom?</Q>
         <Sample which="sample4" />
 
-        <Q>That's why I wrote <a href='https://code.immaculatalibrary.com/'>imlib</a></Q>
+        <Q>That's why I wrote <a target='_blank' href='https://code.immaculatalibrary.com/'>imlib</a>.</Q>
+        <Q>It came out of my work on <a target='_blank' href='https://www.immaculatalibrary.com/'>immaculatalibrary.com</a>.</Q>
+        <Q>I started using it to build <a target='_blank' href='https://minigamemaker.com/'>minigamemaker.com</a>.</Q>
+        <Q>I also used it to build <a target='_blank' href='https://github.com/sdegutis/vanillajsx.com/tree/main/site'>the website you're reading</a>.</Q>
+        <Q>It was created because the status quo wasn't good enough for my site.</Q>
+        <Q>It is now my favorite way to make apps.</Q>
       </div>
 
     </body>
