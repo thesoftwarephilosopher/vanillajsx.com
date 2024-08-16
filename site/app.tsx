@@ -1,4 +1,4 @@
-import highlightJs from 'highlight.js';
+import monaco from '@imlib/monaco-esm';
 
 document.querySelector('#root')?.replaceChildren(<>
 
@@ -12,7 +12,7 @@ function ShowSample(attrs: { which: string }) {
   const div = <div /> as HTMLDivElement;
 
   fetch(`./lib/${attrs.which}.tsx`).then(res => res.text()).then(code => {
-    const codeEl = <code class='language-typescript'>{code}</code> as HTMLElement;
+    const codeEl = <code data-lang='text/typescript'>{code}</code> as HTMLElement;
 
     div.append(<>
       <pre class='sample-code'>
@@ -20,7 +20,7 @@ function ShowSample(attrs: { which: string }) {
       </pre>
     </>);
 
-    highlightJs.highlightElement(codeEl);
+    monaco.editor.colorizeElement(codeEl, { theme: 'vs-dark' });
   });
 
   import(`./lib/${attrs.which}.js`).then(mod => {
