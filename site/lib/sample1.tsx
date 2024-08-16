@@ -1,5 +1,5 @@
 export default function Hello() {
   return (
-    <>Hello <i>world</i></>
+    <>hello <i>world</i></>
   );
 }

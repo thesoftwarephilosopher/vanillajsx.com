@@ -3,6 +3,6 @@ export default function ClickMe() {
   return (
     <button onclick={function (this: HTMLElement) {
       this.textContent = `Clicked ${++i} times`;
-    }}>Click me</button>
+    }}>click me</button>
   );
 }

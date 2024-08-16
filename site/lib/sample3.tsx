@@ -6,7 +6,7 @@ const Colorize = (attrs: { color?: string }, children: any) => {
 
 export default function ManyColors() {
   return <>
-    <p><Colorize>Default</Colorize></p>
-    <p><Colorize color="green">Green</Colorize></p>
+    <p><Colorize>normal</Colorize></p>
+    <p><Colorize color="green">green</Colorize></p>
   </>;
 }
