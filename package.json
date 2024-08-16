@@ -4,10 +4,11 @@
     "watch": "tsc --watch"
   },
   "dependencies": {
-    "@imlib/core": "^2.3.3"
+    "@imlib/core": "^2.5.3"
   },
   "devDependencies": {
     "@types/node": "^22.2.0",
+    "highlight.js": "^11.10.0",
     "typescript": "^5.5.4"
   }
 }

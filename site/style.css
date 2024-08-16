@@ -5,13 +5,25 @@ body {
 }
 
 #root {
-  max-width: 20em;
+  max-width: 30em;
   margin: 3em auto;
 }
 
 a {
   color: #478be6;
   text-underline-offset: 3px;
+}
+
+.sample-code,
+.sample-output {
+  background-color: #0003;
+  border-radius: 7px;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.sample-code .hljs {
+  background: unset;
 }
 
 .list {
