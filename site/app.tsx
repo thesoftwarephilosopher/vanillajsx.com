@@ -3,39 +3,42 @@ import monaco from '@imlib/monaco-esm';
 document.querySelector('#root')?.replaceChildren(<>
   <h1>A case for vanilla JSX</h1>
 
-  <p>What if JSX just returned DOM elements?</p>
-  <ShowSample which="sample1" />
+  <Q>What if JSX just returned DOM elements?</Q>
+  <Sample which="sample1" />
 
-  <p>Could they still by dynamic?</p>
-  <ShowSample which="sample2" />
+  <Q>Could they still be dynamic?</Q>
+  <Sample which="sample2" />
 
-  <p>That's why I wrote <a href='https://code.immaculatalibrary.com/'>imlib</a></p>
+  <Q>Could they still be composable?</Q>
+  <Sample which="sample3" />
+
+  <Q>Could they still be reactive?</Q>
+  <Sample which="sample4" />
+
+  <Q>That's why I wrote <a href='https://code.immaculatalibrary.com/'>imlib</a></Q>
 </>);
 
-function ShowSample(attrs: { which: string }) {
-  const div = <div /> as HTMLDivElement;
+function Q(attrs: any, children: any) {
+  return <p class='q'>{children}</p>;
+}
+
+function Sample(attrs: { which: string }) {
+  const div = <div class='sample'>
+    <pre class='sample-code' />
+    <div class='sample-output' />
+  </div> as HTMLDivElement;
 
   fetch(`./lib/${attrs.which}.tsx`).then(res => res.text()).then(code => {
     const codeEl = <code>{code.trim()}</code> as HTMLElement;
-
-    div.append(<>
-      <pre class='sample-code'>
-        {codeEl}
-      </pre>
-    </>);
-
     monaco.editor.colorizeElement(codeEl, {
       theme: 'vs-dark',
       mimeType: 'text/typescript',
     });
+    div.querySelector('.sample-code')!.append(codeEl);
   });
 
   import(`./lib/${attrs.which}.js`).then(mod => {
-    div.append(<>
-      <div class='sample-output'>
-        <mod.default />
-      </div>
-    </>);
+    div.querySelector('.sample-output')!.append(<mod.default />);
   });
 
   return div;

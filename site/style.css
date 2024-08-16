@@ -5,11 +5,11 @@ body {
 }
 
 #root {
-  max-width: 30em;
+  max-width: 40em;
   margin: 3em auto;
 }
 
-p {
+p.q {
   font-weight: bold;
   margin-top: 3em;
 }
@@ -24,8 +24,20 @@ a:hover {
   text-underline-offset: 5px;
 }
 
+.sample {
+  display: flex;
+  gap: 1em;
+}
+
+.sample p {
+  margin-top: 0;
+}
+
 .sample-code,
 .sample-output {
+  flex: 1 0 auto;
+  margin: 0;
+
   background-color: #0003;
   border-radius: 7px;
   padding: 1em;
