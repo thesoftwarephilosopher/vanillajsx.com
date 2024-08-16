@@ -9,6 +9,6 @@
   "devDependencies": {
     "@imlib/monaco-esm": "^0.0.2",
     "@types/node": "^22.2.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.0-beta"
   }
 }

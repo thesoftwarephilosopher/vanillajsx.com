@@ -12,7 +12,7 @@ document.querySelector('#root')?.replaceChildren(<>
   <Q>Could they create an interactive DOM tree?</Q>
   <Sample which="sample3" />
 
-  <Q>Could they still be suitable for complex apps?</Q>
+  <Q>Could they still be fast with large data?</Q>
   <Sample which="sample4" />
 
   <Q>That's why I wrote <a href='https://code.immaculatalibrary.com/'>imlib</a></Q>
@@ -26,7 +26,7 @@ function Sample(attrs: { which: string }) {
   const div = <div class='sample'>
     <pre class='sample-code'>
       <p>
-        <a target='_blank' href={`https://github.com/sdegutis/vanillajsx.com/blob/main/site/lib/${attrs.which}.tsx`}>
+        <a target='_blank' href={`https://github.com/sdegutis/vanillajsx.com/blob/main/site/samples/${attrs.which}.tsx`}>
           View source
         </a>
       </p>
@@ -34,7 +34,7 @@ function Sample(attrs: { which: string }) {
     <div class='sample-output' />
   </div> as HTMLDivElement;
 
-  fetch(`./lib/${attrs.which}.tsx`).then(res => res.text()).then(code => {
+  fetch(`./samples/${attrs.which}.tsx`).then(res => res.text()).then(code => {
     const codeEl = <code>{code.trim()}</code> as HTMLElement;
     monaco.editor.colorizeElement(codeEl, {
       theme: 'vs-dark',
@@ -43,7 +43,7 @@ function Sample(attrs: { which: string }) {
     div.querySelector('.sample-code')!.append(codeEl);
   });
 
-  import(`./lib/${attrs.which}.js`).then(mod => {
+  import(`./samples/${attrs.which}.js`).then(mod => {
     div.querySelector('.sample-output')!.append(<mod.default />);
   });
 
