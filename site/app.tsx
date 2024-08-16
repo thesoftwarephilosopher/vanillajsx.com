@@ -1,4 +1,9 @@
-import monaco from '@imlib/monaco-esm';
+import { createHighlighter } from 'shiki';
+
+const highlighter = createHighlighter({
+  themes: ['dark-plus'],
+  langs: ['tsx'],
+});
 
 document.querySelector('#root')?.replaceChildren(<>
   <h1>A case for vanilla JSX</h1>
@@ -27,23 +32,27 @@ function Q(attrs: any, children: any) {
 
 function Sample(attrs: { which: string }) {
   const div = <div class='sample'>
-    <pre class='sample-code'>
+    <div class='sample-code'>
       <p>
         <a target='_blank' href={`https://github.com/sdegutis/vanillajsx.com/blob/main/site/samples/${attrs.which}.tsx`}>
           View source
         </a>
       </p>
-    </pre>
+    </div>
     <div class='sample-output' />
   </div> as HTMLDivElement;
 
   fetch(`./samples/${attrs.which}.tsx`).then(res => res.text()).then(code => {
-    const codeEl = <code>{code.trim()}</code> as HTMLElement;
-    monaco.editor.colorizeElement(codeEl, {
-      theme: 'vs-dark',
-      mimeType: 'text/typescript',
+    const el = <div>
+      <pre><code>{code.trim()}</code></pre>
+    </div> as HTMLDivElement;
+    div.querySelector('.sample-code')!.append(el);
+    highlighter.then(hl => {
+      el.innerHTML = hl.codeToHtml(code.trim(), {
+        lang: 'tsx',
+        theme: 'dark-plus',
+      }).trim();
     });
-    div.querySelector('.sample-code')!.append(codeEl);
   });
 
   import(`./samples/${attrs.which}.js`).then(mod => {

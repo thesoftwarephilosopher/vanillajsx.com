@@ -31,6 +31,11 @@ a:hover {
   text-underline-offset: 5px;
 }
 
+.sample pre.shiki {
+  /* ugh cant figure out their api; this will do for now */
+  background-color: transparent !important;
+}
+
 .todolist {
   padding-left: 0;
   list-style-type: none;

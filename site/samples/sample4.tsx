@@ -1,26 +1,35 @@
-// const url = 'https://data.cityofnewyork.us/api/views/25th-nujf/rows.json';
-const url = './sample.json';
-console.log(url)
-const { data } = await fetch(url).then(res => res.json());
-const allNames = data.map((d: any) => d[11].toLowerCase());
-const groups = Map.groupBy<string, any[]>(allNames, (n: any) => n);
+import { getData } from "../helpers.js";
 
-console.log(groups.size)
+const groups = await getData();
 
 export default function FindNames() {
+  const status = <p style='margin:1em 0' /> as HTMLParagraphElement;
   const list = <ul /> as HTMLUListElement;
-  const input = <input /> as HTMLInputElement;
-  input.oninput = () => {
-    const matches = (groups
-      .entries()
-      .filter(g => g[0].includes(input.value))
-      .map(g => <li>{g[0]} ({g[1].length})</li>)
-      .take(10)
+  const input = <input
+    value='eri(c|k)a?'
+    autocomplete='new-password'
+  /> as HTMLInputElement;
+
+  const updateMatches = () => {
+    const matched = (groups.entries()
+      .filter(g => g[0].match(input.value))
       .toArray());
+
+    const matches = (Iterator.from(matched)
+      .map(match => <Item match={match} />)
+      .take(20)
+      .toArray());
+
     list.replaceChildren(...matches);
+    status.textContent = `${matched.length} / ${groups.size}`;
   };
-  return <>
-    {input}
-    {list}
-  </>;
+
+  input.oninput = updateMatches;
+  updateMatches();
+
+  return <>{input}{status}{list}</>;
+}
+
+function Item({ match: [name, group] }: { match: [string, any[]] }) {
+  return <li>{name} ({group.length})</li>;
 }
