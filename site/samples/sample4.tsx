@@ -2,7 +2,7 @@ import { data } from "../fetch-dataset.js";
 
 export default function FindNames() {
   const status = <p style='margin:1em 0' /> as HTMLParagraphElement;
-  const list = <ul /> as HTMLUListElement;
+  const results = <ul /> as HTMLUListElement;
   const input = <input
     value='eri(c|k)a?'
     autocomplete='new-password'
@@ -14,20 +14,29 @@ export default function FindNames() {
       .toArray());
 
     const matches = (Iterator.from(matched)
-      .map(match => <Item match={match} />)
-      .take(20)
-      .toArray());
+      .map(match => <Item regex={input.value} match={match} />)
+      .take(30));
 
-    list.replaceChildren(...matches);
+    results.replaceChildren(...matches);
     status.textContent = `${matched.length} / ${data.size}`;
   };
 
   input.oninput = updateMatches;
   updateMatches();
 
-  return <>{input}{status}{list}</>;
+  return <>{input}{status}{results}</>;
 }
 
-function Item({ match: [name, group] }: { match: [string, any[]] }) {
-  return <li>{name} ({group.length})</li>;
+function Item(attrs: { match: [string, any[]], regex: string }) {
+  const [name, group] = attrs.match;
+  const count = <small style='color:#fff3'>({group.length})</small>;
+  return <li>
+    <span innerHTML={highlight(name, attrs.regex)} /> {count}
+  </li>;
+}
+
+function highlight(str: string, regex: string) {
+  if (!regex) return str;
+  const r = new RegExp(`(${regex})`, 'gi');
+  return str.replace(r, '<span class="match">$1</span>');
 }

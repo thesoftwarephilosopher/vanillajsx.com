@@ -50,6 +50,10 @@ a:hover {
   background-color: #f003;
 }
 
+.match {
+  color: #19f;
+}
+
 .sample {
   display: flex;
   gap: 1em;
