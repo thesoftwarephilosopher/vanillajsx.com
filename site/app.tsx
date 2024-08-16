@@ -11,8 +11,7 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
   });
 
   const pre = sample.querySelector('pre')!;
-  const code = pre.textContent!;
-  pre.outerHTML = highlighter.codeToHtml(code, {
+  pre.outerHTML = highlighter.codeToHtml(pre.textContent!, {
     lang: 'tsx',
     theme: 'dark-plus',
   });
