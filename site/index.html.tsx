@@ -36,6 +36,7 @@ export default <>
         <Q>I also used it to build <a target='_blank' href='https://github.com/sdegutis/vanillajsx.com/tree/main/site'>the website you're reading</a> (&lt;-- src).</Q>
         <Q>It was created because the status quo wasn't good enough for my site.</Q>
         <Q>It is now my favorite way to make apps.</Q>
+        <Q>(Also, here's a much better <a href="https://sdegutis.github.io/imlib-todolist/">imlib todo-list app</a> (<a href="https://github.com/sdegutis/imlib-todolist/blob/main/site/app.tsx">src</a>)).</Q>
       </div>
 
     </body>

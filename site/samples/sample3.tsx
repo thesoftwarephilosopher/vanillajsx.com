@@ -28,5 +28,3 @@ export default () => {
     {list.ul}
   </>;
 };
-
-// Fuller example at https://sdegutis.github.io/imlib-todolist/
