@@ -30,14 +30,14 @@ export default <>
         <Q>Could they be convenient without a virtual dom?</Q>
         <Sample which="sample4" />
 
-        <Q>That's why I wrote <a target='_blank' href='https://code.immaculatalibrary.com/'>imlib</a> (<a href="https://github.com/sdegutis/imlib">src</a>).</Q>
-        <Q>It came out of my work on <a target='_blank' href='https://www.immaculatalibrary.com/'>immaculatalibrary.com</a> (<a href="https://github.com/sdegutis/immaculatalibrary.com">src</a>).</Q>
-        <Q>I started using it to build <a target='_blank' href='https://minigamemaker.com/'>minigamemaker.com</a> (<a href="https://github.com/sdegutis/minigamemaker.com">src</a>).</Q>
-        <Q>I also used it to build <a target='_blank' href='https://github.com/sdegutis/vanillajsx.com/tree/main/site'>the website you're reading</a> (&lt;-- src).</Q>
-        <Q>It was created because the status quo wasn't good enough for my site.</Q>
-        <Q>It is now my favorite way to make apps.</Q>
-        <Q>(Also, here's a much better <a href="https://sdegutis.github.io/imlib-todolist/">imlib todo-list app</a> (<a href="https://github.com/sdegutis/imlib-todolist/blob/main/site/app.tsx">src</a>)).</Q>
-        <Q>The two most complex "interactive apps" I've built with this are:</Q>
+        <p>That's why I wrote <a target='_blank' href='https://code.immaculatalibrary.com/'>imlib</a> (<a href="https://github.com/sdegutis/imlib">src</a>).</p>
+        <p>It came out of my work on <a target='_blank' href='https://www.immaculatalibrary.com/'>immaculatalibrary.com</a> (<a href="https://github.com/sdegutis/immaculatalibrary.com">src</a>).</p>
+        <p>I started using it to build <a target='_blank' href='https://minigamemaker.com/'>minigamemaker.com</a> (<a href="https://github.com/sdegutis/minigamemaker.com">src</a>).</p>
+        <p>I also used it to build <a target='_blank' href='https://github.com/sdegutis/vanillajsx.com/tree/main/site'>the website you're reading</a> (&lt;-- src).</p>
+        <p>It was created because the status quo wasn't good enough for my site.</p>
+        <p>It is now my favorite way to make apps.</p>
+        <p>(Also, here's a much better <a href="https://sdegutis.github.io/imlib-todolist/">imlib todo-list app</a> (<a href="https://github.com/sdegutis/imlib-todolist/blob/main/site/app.tsx">src</a>)).</p>
+        <p>The two most complex "interactive apps" I've built with this are:</p>
         <ul>
           <li><a href="https://www.immaculatalibrary.com/books.html">Books search page</a> (<a href="https://github.com/sdegutis/immaculatalibrary.com/blob/main/site/scripts/books-page.tsx">src</a>)</li>
           <li><a href="https://www.immaculatalibrary.com/prayers/">Prayer page</a> (<a href="https://github.com/sdegutis/immaculatalibrary.com/blob/main/site/prayers/client.tsx">src</a>)</li>
