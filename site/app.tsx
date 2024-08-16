@@ -6,13 +6,16 @@ document.querySelector('#root')?.replaceChildren(<>
   <Q>What if JSX just returned DOM elements?</Q>
   <Sample which="sample1" />
 
+  <Q>Would they be reusable?</Q>
   <Q>Could they keep their own state?</Q>
   <Sample which="sample2" />
 
+  <Q>How would they interact?</Q>
   <Q>Could they create an interactive DOM tree?</Q>
   <Sample which="sample3" />
 
-  <Q>Could they still be fast with large data?</Q>
+  <Q>How would they handle large data?</Q>
+  <Q>Could they be convenient without a virtual dom?</Q>
   <Sample which="sample4" />
 
   <Q>That's why I wrote <a href='https://code.immaculatalibrary.com/'>imlib</a></Q>
