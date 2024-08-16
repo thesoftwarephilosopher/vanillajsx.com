@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "jsx": "react-native",
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "rootDir": "site",
+    "noEmit": true,
+    "types": [
+      "node",
+      "@imlib/core/runtime.d.ts"
+    ],
+    "strict": true,
+    "noImplicitAny": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+  },
+}
