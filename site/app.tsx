@@ -6,13 +6,13 @@ document.querySelector('#root')?.replaceChildren(<>
   <Q>What if JSX just returned DOM elements?</Q>
   <Sample which="sample1" />
 
-  <Q>Could they still be dynamic?</Q>
+  <Q>Could they still keep their own state?</Q>
   <Sample which="sample2" />
 
-  <Q>Could they still be composable?</Q>
+  <Q>Could they still be complex?</Q>
   <Sample which="sample3" />
 
-  <Q>Could they still be reactive?</Q>
+  <Q>Could they still be composable?</Q>
   <Sample which="sample4" />
 
   <Q>That's why I wrote <a href='https://code.immaculatalibrary.com/'>imlib</a></Q>
@@ -24,7 +24,13 @@ function Q(attrs: any, children: any) {
 
 function Sample(attrs: { which: string }) {
   const div = <div class='sample'>
-    <pre class='sample-code' />
+    <pre class='sample-code'>
+      <p>
+        <a href={`https://github.com/sdegutis/vanillajsx.com/blob/main/site/lib/${attrs.which}.tsx`}>
+          View source
+        </a>
+      </p>
+    </pre>
     <div class='sample-output' />
   </div> as HTMLDivElement;
 

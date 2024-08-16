@@ -1,8 +1,7 @@
-export default function ClickMe() {
-  let i = 0;
-  return (
-    <button onclick={function (this: HTMLElement) {
-      this.textContent = `Clicked ${++i} times`;
-    }}>click me</button>
-  );
-}
+import ClickMe from "./sample1.js";
+
+export default () => <>
+  <p><ClickMe /></p>
+  <p><ClickMe /></p>
+  <p><ClickMe /></p>
+</>;

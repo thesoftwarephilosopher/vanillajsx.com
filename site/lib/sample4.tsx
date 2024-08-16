@@ -1,8 +1,7 @@
-export default function ClickMe() {
-  let i = 0;
-  return (
-    <button onclick={function (this: HTMLElement) {
-      this.textContent = `Clicked ${++i} times`;
-    }}>Click me</button>
-  );
+export default function Uppercaser() {
+  const input = <input /> as HTMLInputElement;
+  const p = <p /> as HTMLParagraphElement;
+  input.oninput = () =>
+    p.textContent = input.value.toUpperCase();
+  return <>{input}{p}</>;
 }
