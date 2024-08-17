@@ -21,8 +21,8 @@ function TodoList() {
     <div>{input}</div>
     <div class='actions'>
       <Counter list={list} />
-      <Button onclick={() => list.clearDone()}>Clear done</Button>
-      <Button onclick={() => list.invertAll()}><i>Invert</i> all</Button>
+      <Button onclick={() => list.clearDone()}>Clear</Button>
+      <Button onclick={() => list.invertAll()}><i>Invert</i></Button>
     </div>
     {list.ul}
   </div>;
@@ -31,18 +31,18 @@ function TodoList() {
 class List extends EventTarget {
 
   ul = <ul class='list' /> as HTMLUListElement;
-  #items: Item[] = [];
+  items: Item[] = [];
 
   add(text: string) {
     const item = new Item(this, text);
-    this.#items.push(item);
+    this.items.push(item);
     this.ul.append(item.li);
     this.dispatchEvent(new Event('change'));
     return item;
   }
 
   rem(item: Item) {
-    this.#items = this.#items.filter(it => it !== item);
+    this.items = this.items.filter(it => it !== item);
     this.dispatchEvent(new Event('change'));
   }
 
@@ -51,11 +51,11 @@ class List extends EventTarget {
   }
 
   invertAll() {
-    this.#items.forEach(it => it.toggle());
+    this.items.forEach(it => it.toggle());
   }
 
   doneItems() {
-    return this.#items.filter(it => it.done);
+    return this.items.filter(it => it.done);
   }
 
   itemChanged() {
@@ -99,7 +99,7 @@ function Counter({ list }: { list: List }) {
   const span = <span /> as HTMLSpanElement;
 
   const updateText = () => {
-    span.textContent = `Done: ${list.doneItems().length}`;
+    span.textContent = `Done: ${list.doneItems().length}/${list.items.length}`;
   };
 
   updateText();
