@@ -89,7 +89,7 @@ a:hover {
 }
 
 .sample-code {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
 }
 
 @media (min-width: 600px) {
