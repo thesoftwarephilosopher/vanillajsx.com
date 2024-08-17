@@ -6,9 +6,11 @@ export default function FindNames() {
   const input = <input
     value='eri(c|k)a?'
     autocomplete='new-password'
+    oninput={updateMatches}
   /> as HTMLInputElement;
 
-  const updateMatches = () => {
+  updateMatches();
+  function updateMatches() {
     const matched = (data.entries()
       .filter(([k]) => k.match(input.value))
       .toArray());
@@ -19,10 +21,7 @@ export default function FindNames() {
 
     results.replaceChildren(...matches);
     status.textContent = `${matched.length} / ${data.size}`;
-  };
-
-  input.oninput = updateMatches;
-  updateMatches();
+  }
 
   return <div class='sample4'>
     {input}
