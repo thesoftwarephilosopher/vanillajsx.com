@@ -40,7 +40,7 @@ class List extends EventTarget {
     this.ul.append(item.li);
     this.dispatchEvent(new Event('item-added'));
 
-    this.itemUnlisteners.set(item, listen(item, 'changed', () => {
+    this.itemUnlisteners.set(item, listen(item, 'toggled', () => {
       this.dispatchEvent(new Event('item-toggled'));
     }));
 
@@ -90,7 +90,7 @@ class Item extends EventTarget {
     this.done = !this.done;
     this.li.classList.toggle('done', this.done);
     this.#checkbox.checked = this.done;
-    this.dispatchEvent(new Event('changed'));
+    this.dispatchEvent(new Event('toggled'));
   }
 
 }
