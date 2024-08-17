@@ -21,8 +21,8 @@ function TodoList() {
     <div>{input}</div>
     <div class='actions'>
       <Counter list={list} />
-      <ActionButton onclick={() => list.clearDone()}>Clear done</ActionButton>
-      <ActionButton onclick={() => list.invertAll()}><i>Invert</i> all</ActionButton>
+      <Button onclick={() => list.clearDone()}>Clear done</Button>
+      <Button onclick={() => list.invertAll()}><i>Invert</i> all</Button>
     </div>
     {list.ul}
   </div>;
@@ -110,7 +110,7 @@ function Counter({ list }: { list: List }) {
   return span;
 }
 
-function ActionButton(attrs: { onclick: () => void }, children: any) {
+function Button(attrs: { onclick: () => void }, children: any) {
   return <a
     href='#'
     class='action-button'
