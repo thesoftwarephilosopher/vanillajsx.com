@@ -15,7 +15,12 @@ p.q {
 }
 
 h1 {
-  margin-bottom: 2em;
+  margin-bottom: 0.25em;
+}
+
+h1+small {
+  display: block;
+  margin-bottom: 7em;
 }
 
 .sample {
