@@ -70,7 +70,6 @@ class Item {
 
   done = false;
   #checkbox = <input type='checkbox' /> as HTMLInputElement;
-  // TODO: why isn't checkbox showing up on vanillajsx.com?
   li;
 
   constructor(private list: List, text: string) {
