@@ -30,8 +30,11 @@ export default <>
         <Q>Could they be convenient without a virtual dom?</Q>
         <Sample which="sample4" />
 
-        <p>This idea came out of my work on <a href="https://github.com/sdegutis/imlib">imlib</a>.</p>
-        <p>(Also, here's a much better <a href="https://sdegutis.github.io/imlib-todolist/">imlib todo-list app</a>.)</p>
+        <Q>How would they manage complex state?</Q>
+        <Q>How could parent components react to children?</Q>
+        <Sample which="sample5" />
+
+        <p>This came out of my work on <a href="https://github.com/sdegutis/imlib">imlib</a>.</p>
       </div>
 
     </body>

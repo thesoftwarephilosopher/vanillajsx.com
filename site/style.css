@@ -124,3 +124,90 @@ input:not([type=checkbox]):focus,
 button:active {
   outline-color: #19f;
 }
+
+/* Imported from other todolist repo */
+
+#real-todolist .list {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+#real-todolist button,
+#real-todolist input {
+  appearance: none;
+  background-color: #000;
+  color: inherit;
+  border: none;
+  outline: 1px solid #2d343c;
+  padding: 0.5em;
+  font-family: inherit;
+  border-radius: 3px;
+}
+
+#real-todolist button {
+  cursor: pointer;
+}
+
+#real-todolist input.next {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#real-todolist input:not([type=checkbox]):focus,
+#real-todolist button:active {
+  outline-color: #19f;
+}
+
+#real-todolist .item {
+  display: flex;
+  align-items: center;
+}
+
+#real-todolist .item:hover {
+  background-color: #0002;
+}
+
+#real-todolist .item input[type=checkbox] {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+#real-todolist .item input[type=checkbox]:not(:checked) {
+  outline-color: #19f;
+}
+
+#real-todolist .item span {
+  flex: 1 0 auto;
+}
+
+#real-todolist .item.done span {
+  text-decoration: line-through #f00c 7px;
+
+}
+
+#real-todolist .item>:is(span, input) {
+  cursor: pointer;
+}
+
+#real-todolist .item.done span {
+  opacity: .5;
+}
+
+#real-todolist .item button.close:not(:hover) {
+  border: none;
+  outline: none;
+  background-color: inherit;
+}
+
+#real-todolist .actions {
+  background-color: #0002;
+  padding: 0.75em;
+  margin: 1em 0;
+  font-size: small;
+  display: flex;
+  justify-content: space-between;
+}
+
+#real-todolist .actions a.action-button:not(:hover) {
+  text-decoration: none;
+}
