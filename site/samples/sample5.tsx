@@ -28,24 +28,22 @@ function TodoList() {
   </div>;
 }
 
-class List {
+class List extends EventTarget {
 
   ul = <ul class='list' /> as HTMLUListElement;
   #items: Item[] = [];
-
-  onchange?: () => void;
 
   add(text: string) {
     const item = new Item(this, text);
     this.#items.push(item);
     this.ul.append(item.li);
-    this.onchange?.();
+    this.dispatchEvent(new Event('change'));
     return item;
   }
 
   rem(item: Item) {
     this.#items = this.#items.filter(it => it !== item);
-    this.onchange?.();
+    this.dispatchEvent(new Event('change'));
   }
 
   clearDone() {
@@ -61,7 +59,7 @@ class List {
   }
 
   itemChanged() {
-    this.onchange?.();
+    this.dispatchEvent(new Event('change'));
   }
 
 }
@@ -105,7 +103,7 @@ function Counter({ list }: { list: List }) {
   };
 
   updateText();
-  list.onchange = updateText;
+  list.addEventListener('change', updateText);
 
   return span;
 }
