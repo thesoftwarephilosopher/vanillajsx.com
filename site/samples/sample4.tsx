@@ -24,6 +24,7 @@ export default function FindNames() {
   }
 
   return <div class='sample4'>
+    <p>US citizens born in 1882</p>
     {input}
     {status}
     {results}
