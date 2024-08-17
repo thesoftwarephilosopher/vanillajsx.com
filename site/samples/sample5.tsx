@@ -68,21 +68,19 @@ class List {
 
 class Item {
 
-  public done = false;
-  private checkbox = <input type='checkbox' /> as HTMLInputElement;
+  done = false;
+  #checkbox = <input type='checkbox' /> as HTMLInputElement;
+  li;
 
-  constructor(
-    private list: List,
-    public text: string,
-    public li = (
+  constructor(private list: List, public text: string) {
+    this.li = (
       <li class='item'>
-        {this.checkbox}
+        {this.#checkbox}
         <span onclick={() => this.toggle()}>{text}</span>
         <button class='close' onclick={() => this.remove()}>✕</button>
       </li> as HTMLLIElement
-    ),
-  ) {
-    this.checkbox.onclick = () => this.toggle();
+    );
+    this.#checkbox.onclick = () => this.toggle();
   }
 
   remove() {
@@ -93,7 +91,7 @@ class Item {
   toggle() {
     this.done = !this.done;
     this.li.classList.toggle('done', this.done);
-    this.checkbox.checked = this.done;
+    this.#checkbox.checked = this.done;
     this.list.itemChanged();
   }
 
