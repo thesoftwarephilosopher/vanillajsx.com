@@ -36,7 +36,6 @@ export default <>
         <Sample which="sample5" />
 
         <p>This came out of my work on <a href="https://github.com/sdegutis/imlib">imlib</a>.</p>
-
         <p>Also check out the <a href="https://github.com/sdegutis/vanillajsx.com/blob/main/site/index.html.tsx">source to this page</a>.</p>
       </div>
 
