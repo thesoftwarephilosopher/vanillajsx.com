@@ -1,4 +1,9 @@
+import * as prism from 'prismjs';
+import loadLanguages from 'prismjs/components/index';
 import files from './samples/';
+
+loadLanguages('tsx');
+const highlight = (str: string) => prism.highlight(str, prism.languages['tsx']!, 'tsx');
 
 export default <>
   {`<!DOCTYPE html>`}
@@ -7,8 +12,8 @@ export default <>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel='stylesheet' href='style.css' />
+      <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-vsc-dark-plus.min.css' />
       <script type='module' src='load-samples.js' />
-      <script type='module' src='highlight-code.js' />
       <title>Vanilla JSX</title>
     </head>
     <body>
@@ -59,7 +64,7 @@ function Sample(attrs: { which: string }) {
         <p><a target='_blank' href={src}>View source</a></p>
         <pre>
           <code>
-            {file.module!.source.replace(/</g, '&lt;')}
+            {highlight(file.module!.source)}
           </code>
         </pre>
       </div>

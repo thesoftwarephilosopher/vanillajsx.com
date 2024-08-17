@@ -13,6 +13,7 @@
     "strict": true,
     "noImplicitAny": true,
     "exactOptionalPropertyTypes": true,
+    "allowSyntheticDefaultImports": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
