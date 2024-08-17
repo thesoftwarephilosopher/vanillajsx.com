@@ -32,16 +32,26 @@ class List extends EventTarget {
 
   ul = <ul class='list' /> as HTMLUListElement;
   items: Item[] = [];
+  itemUnlisteners = new Map<Item, () => void>();
 
   add(text: string) {
     const item = new Item(this, text);
     this.items.push(item);
     this.ul.append(item.li);
     this.dispatchEvent(new Event('item-added'));
+
+    this.itemUnlisteners.set(item, listen(item, 'changed', () => {
+      this.dispatchEvent(new Event('item-toggled'));
+    }));
+
     return item;
   }
 
   rem(item: Item) {
+    const unlisten = this.itemUnlisteners.get(item)!;
+    this.itemUnlisteners.delete(item);
+    unlisten();
+
     this.items = this.items.filter(it => it !== item);
     this.dispatchEvent(new Event('item-removed'));
   }
@@ -49,19 +59,18 @@ class List extends EventTarget {
   clearDone = () => this.doneItems().forEach(it => it.remove());
   invertAll = () => this.items.forEach(it => it.toggle());
 
-  itemChanged = () => this.dispatchEvent(new Event('item-toggled'));
-
   doneItems = () => this.items.filter(it => it.done);
 
 }
 
-class Item {
+class Item extends EventTarget {
 
   done = false;
   #checkbox = <input type='checkbox' /> as HTMLInputElement;
   li;
 
   constructor(private list: List, text: string) {
+    super();
     this.li = (
       <li class='item'>
         {this.#checkbox}
@@ -81,7 +90,7 @@ class Item {
     this.done = !this.done;
     this.li.classList.toggle('done', this.done);
     this.#checkbox.checked = this.done;
-    this.list.itemChanged();
+    this.dispatchEvent(new Event('changed'));
   }
 
 }
@@ -112,4 +121,9 @@ function Button(attrs: { onclick: () => void }, children: any) {
       attrs.onclick();
     }}
   >{children}</a>;
+}
+
+function listen(target: EventTarget, event: string, fn: () => void) {
+  target.addEventListener(event, fn);
+  return () => target.removeEventListener(event, fn);
 }
