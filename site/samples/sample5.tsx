@@ -37,13 +37,13 @@ class List extends EventTarget {
     const item = new Item(this, text);
     this.items.push(item);
     this.ul.append(item.li);
-    this.dispatchEvent(new Event('change'));
+    this.dispatchEvent(new Event('item-added'));
     return item;
   }
 
   rem(item: Item) {
     this.items = this.items.filter(it => it !== item);
-    this.dispatchEvent(new Event('change'));
+    this.dispatchEvent(new Event('item-removed'));
   }
 
   clearDone() {
@@ -59,7 +59,7 @@ class List extends EventTarget {
   }
 
   itemChanged() {
-    this.dispatchEvent(new Event('change'));
+    this.dispatchEvent(new Event('item-toggled'));
   }
 
 }
@@ -105,7 +105,9 @@ function Counter({ list }: { list: List }) {
   };
 
   updateText();
-  list.addEventListener('change', updateText);
+  list.addEventListener('item-added', updateText);
+  list.addEventListener('item-removed', updateText);
+  list.addEventListener('item-toggled', updateText);
 
   return span;
 }
