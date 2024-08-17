@@ -46,21 +46,12 @@ class List extends EventTarget {
     this.dispatchEvent(new Event('item-removed'));
   }
 
-  clearDone() {
-    this.doneItems().forEach(it => it.remove());
-  }
+  clearDone = () => this.doneItems().forEach(it => it.remove());
+  invertAll = () => this.items.forEach(it => it.toggle());
 
-  invertAll() {
-    this.items.forEach(it => it.toggle());
-  }
+  itemChanged = () => this.dispatchEvent(new Event('item-toggled'));
 
-  doneItems() {
-    return this.items.filter(it => it.done);
-  }
-
-  itemChanged() {
-    this.dispatchEvent(new Event('item-toggled'));
-  }
+  doneItems = () => this.items.filter(it => it.done);
 
 }
 
