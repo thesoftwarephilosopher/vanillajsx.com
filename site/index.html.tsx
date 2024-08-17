@@ -7,7 +7,8 @@ export default <>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel='stylesheet' href='style.css' />
-      <script type='module' src='client.js' />
+      <script type='module' src='load-samples.js' />
+      <script type='module' src='highlight-code.js' />
       <title>Vanilla JSX</title>
     </head>
     <body>
