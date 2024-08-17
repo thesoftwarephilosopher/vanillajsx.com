@@ -2,9 +2,10 @@ import { data } from "../fetch-dataset.js";
 // Names of US citizens born in 1882 from ssa.gov
 
 export default function FindNames() {
-  const status = <p style='margin:1em 0' /> as HTMLParagraphElement;
+  const status = <p class='status' /> as HTMLParagraphElement;
   const results = <ul /> as HTMLUListElement;
   const input = <input
+    type='text'
     value='.?mary?'
     autocomplete='new-password'
     oninput={updateMatches}
@@ -19,17 +20,13 @@ export default function FindNames() {
 
     const matches = (Iterator.from(matched)
       .map(match => <Item regex={regex} match={match} />)
-      .take(30));
+      .take(25));
 
     results.replaceChildren(...matches);
     status.textContent = `${matched.length} / ${data.size}`;
   }
 
-  return <div class='sample4'>
-    {input}
-    {status}
-    {results}
-  </div>;
+  return <div>{input}{status}{results}</div>;
 }
 
 function Item(attrs: { match: [string, number], regex: RegExp }) {

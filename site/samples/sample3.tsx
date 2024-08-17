@@ -1,5 +1,5 @@
 function TodoInput(attrs: { add: (v: string) => void }) {
-  const input = <input /> as HTMLInputElement;
+  const input = <input type='text' /> as HTMLInputElement;
   input.placeholder = 'Add todo item...';
   input.onkeydown = (e) => {
     if (e.key === 'Enter') {

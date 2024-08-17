@@ -56,7 +56,7 @@ function Sample(attrs: { which: string }) {
   return (
     <div class='sample' data-sample={attrs.which}>
       <div class='sample-code'>
-        <p><a target='_blank' href={src}>View source</a></p>
+        <p><a class='view-src' target='_blank' href={src}>View source</a></p>
         <pre>
           <code>
             {file.module!.source.replace(/</g, '&lt;')}

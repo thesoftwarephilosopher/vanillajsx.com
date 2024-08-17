@@ -9,7 +9,7 @@ function TodoList() {
   list.add('bar').toggle();
   list.add('qux');
 
-  const input = <input class='next' /> as HTMLInputElement;
+  const input = <input type='text' /> as HTMLInputElement;
   input.onkeydown = (e) => {
     if (e.key === 'Enter' && input.value.trim().length > 0) {
       list.add(input.value);
@@ -21,8 +21,8 @@ function TodoList() {
     <div>{input}</div>
     <div class='actions'>
       <Counter list={list} />
-      <Button onclick={() => list.clearDone()}>Clear</Button>
-      <Button onclick={() => list.invertAll()}><i>Invert</i></Button>
+      <button onclick={() => list.clearDone()}>Clear</button>
+      <button onclick={() => list.invertAll()}><i>Invert</i></button>
     </div>
     {list.ul}
   </div>;
@@ -110,17 +110,6 @@ function Counter({ list }: { list: List }) {
   list.addEventListener('item-toggled', updateText);
 
   return span;
-}
-
-function Button(attrs: { onclick: () => void }, children: any) {
-  return <a
-    href='#'
-    class='action-button'
-    onclick={(e: Event) => {
-      e.preventDefault();
-      attrs.onclick();
-    }}
-  >{children}</a>;
 }
 
 function listen(target: EventTarget, event: string, fn: () => void) {
