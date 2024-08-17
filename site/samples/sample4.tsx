@@ -11,12 +11,13 @@ export default function FindNames() {
 
   updateMatches();
   function updateMatches() {
+    const regex = new RegExp(`(${input.value})`, 'gi');
     const matched = (data.entries()
-      .filter(([k]) => k.match(input.value))
+      .filter(([k]) => k.match(regex))
       .toArray());
 
     const matches = (Iterator.from(matched)
-      .map(match => <Item regex={input.value} match={match} />)
+      .map(match => <Item regex={regex} match={match} />)
       .take(30));
 
     results.replaceChildren(...matches);
@@ -31,7 +32,7 @@ export default function FindNames() {
   </div>;
 }
 
-function Item(attrs: { match: [string, number], regex: string }) {
+function Item(attrs: { match: [string, number], regex: RegExp }) {
   const [name, count] = attrs.match;
   const total = <small style='color:#fff3'>({count})</small>;
   return <li>
@@ -39,8 +40,6 @@ function Item(attrs: { match: [string, number], regex: string }) {
   </li>;
 }
 
-function highlight(str: string, regex: string) {
-  if (!regex) return str;
-  const r = new RegExp(`(${regex})`, 'gi');
-  return str.replace(r, '<span class="match">$1</span>');
+function highlight(str: string, regex: RegExp) {
+  return str.replace(regex, '<span class="match">$1</span>');
 }
