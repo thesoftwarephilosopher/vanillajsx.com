@@ -5,8 +5,7 @@ body {
 }
 
 #root {
-  max-width: 50em;
-  width: 80vw;
+  width: min(50em, 80vw);
   margin: 3em auto 30em;
 }
 
