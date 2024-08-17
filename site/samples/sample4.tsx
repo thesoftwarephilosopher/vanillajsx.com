@@ -5,7 +5,7 @@ export default function FindNames() {
   const status = <p style='margin:1em 0' /> as HTMLParagraphElement;
   const results = <ul /> as HTMLUListElement;
   const input = <input
-    value='eri(c|k)a?'
+    value='.?mary?'
     autocomplete='new-password'
     oninput={updateMatches}
   /> as HTMLInputElement;
