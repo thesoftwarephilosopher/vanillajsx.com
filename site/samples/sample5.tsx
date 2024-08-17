@@ -72,7 +72,7 @@ class Item {
   #checkbox = <input type='checkbox' /> as HTMLInputElement;
   li;
 
-  constructor(private list: List, public text: string) {
+  constructor(private list: List, text: string) {
     this.li = (
       <li class='item'>
         {this.#checkbox}
