@@ -9,7 +9,7 @@ function TodoList() {
   list.add('bar').toggle();
   list.add('qux');
 
-  const input = <input class='next' autofocus /> as HTMLInputElement;
+  const input = <input class='next' /> as HTMLInputElement;
   input.onkeydown = (e) => {
     if (e.key === 'Enter' && input.value.trim().length > 0) {
       list.add(input.value);
