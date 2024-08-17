@@ -6,6 +6,7 @@ body {
 
 #root {
   max-width: 50em;
+  width: 80vw;
   margin: 3em auto 30em;
 }
 
@@ -66,8 +67,12 @@ a:hover {
 
 .sample {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1em;
+}
+
+.sample-code {
+  overflow: auto;
 }
 
 .sample p {
@@ -87,8 +92,16 @@ a:hover {
   flex: 1 0 auto;
 }
 
-.sample-output {
-  flex: 0 0 14em;
+@media (min-width: 600px) {
+
+  .sample {
+    flex-direction: row;
+  }
+
+  .sample-output {
+    flex: 0 0 14em;
+  }
+
 }
 
 button,
