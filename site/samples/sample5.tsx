@@ -38,6 +38,11 @@ class List extends EventTarget {
     this.items.push(item);
     this.ul.append(item.li);
     this.dispatchEvent(new Event('item-added'));
+
+    item.addEventListener('begin-edit', () => {
+      this.items.filter(it => it !== item).forEach(it => it.cancel());
+    });
+
     return item;
   }
 
@@ -55,20 +60,30 @@ class List extends EventTarget {
 
 }
 
-class Item {
+class Item extends EventTarget {
 
   done = false;
   #checkbox = <input type='checkbox' /> as HTMLInputElement;
+  #span = <span onclick={() => this.edit()} /> as HTMLSpanElement;
+  #input = <input type='text' onkeydown={(e: KeyboardEvent) => {
+    const actions: Record<string, () => void> = {
+      Escape: () => this.cancel(),
+      Enter: () => this.commit(),
+    };
+    actions[e.key]?.();
+  }} /> as HTMLInputElement;
   li;
 
-  constructor(private list: List, text: string) {
+  constructor(private list: List, private text: string) {
+    super();
     this.li = (
       <li class='item'>
         {this.#checkbox}
-        <span onclick={() => this.toggle()}>{text}</span>
+        {this.#span}
         <button class='close' onclick={() => this.remove()}>✕</button>
       </li> as HTMLLIElement
     );
+    this.#span.textContent = text;
     this.#checkbox.onclick = () => this.toggle();
   }
 
@@ -78,10 +93,30 @@ class Item {
   }
 
   toggle() {
+    if (this.#input.parentNode) {
+      this.cancel();
+    }
+
     this.done = !this.done;
     this.li.classList.toggle('done', this.done);
     this.#checkbox.checked = this.done;
     this.list.itemChanged();
+  }
+
+  edit() {
+    this.dispatchEvent(new Event('begin-edit'));
+    this.#input.value = this.text;
+    this.#span.replaceWith(this.#input);
+    this.#input.focus();
+  }
+
+  cancel() {
+    this.#input.replaceWith(this.#span);
+  }
+
+  commit() {
+    this.#input.replaceWith(this.#span);
+    this.#span.textContent = this.text = this.#input.value;
   }
 
 }

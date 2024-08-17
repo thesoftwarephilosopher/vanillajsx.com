@@ -158,6 +158,16 @@ button:active {
   box-sizing: border-box;
 }
 
+#real-todolist .item input[type=text] {
+  width: 100%;
+  font: inherit;
+  padding: unset;
+}
+
+#real-todolist .item span {
+  cursor: text;
+}
+
 #real-todolist input:not([type=checkbox]):focus,
 #real-todolist button:active {
   outline-color: #19f;
@@ -190,7 +200,7 @@ button:active {
 
 }
 
-#real-todolist .item>:is(span, input) {
+#real-todolist .item>input[type=checkbox] {
   cursor: pointer;
 }
 
