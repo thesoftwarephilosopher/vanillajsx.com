@@ -159,7 +159,7 @@ a:hover {
   #real-todolist {
 
     .actions {
-      background-color: #0002;
+      background-color: #0003;
       padding: 0.75em;
       margin: 1em 0;
       font-size: small;
@@ -170,7 +170,7 @@ a:hover {
         outline: none;
         border: none;
         font: inherit;
-        background: inherit;
+        background: transparent;
         color: #19f;
         padding: 0;
         margin: 0;
