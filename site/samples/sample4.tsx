@@ -1,4 +1,5 @@
 import { data } from "../fetch-dataset.js";
+// Names of US citizens born in 1882 from ssa.gov
 
 export default function FindNames() {
   const status = <p style='margin:1em 0' /> as HTMLParagraphElement;
@@ -25,7 +26,6 @@ export default function FindNames() {
   }
 
   return <div class='sample4'>
-    <p>US citizens born in 1882</p>
     {input}
     {status}
     {results}
