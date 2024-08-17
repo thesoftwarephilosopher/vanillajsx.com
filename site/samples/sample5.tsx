@@ -99,7 +99,9 @@ function Counter({ list }: { list: List }) {
   const span = <span /> as HTMLSpanElement;
 
   const updateText = () => {
-    span.textContent = `Done: ${list.doneItems().length}/${list.items.length}`;
+    const done = list.doneItems().length;
+    const total = list.items.length;
+    span.textContent = `Done: ${done}/${total}`;
   };
 
   updateText();
