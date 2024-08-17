@@ -36,7 +36,9 @@ export default <>
         <Q>How could parent components react to children?</Q>
         <Sample which="sample5" />
 
-        <p>This came out of my work on <a href="https://github.com/sdegutis/imlib">imlib</a>.</p>
+        <p>The only runtime needed for this is <a href="https://vanillajsx.com/@imlib/jsx-browser.js">@imlib/jsx-browser.js</a>.</p>
+        <p>JSX is compiled by <a href="https://swc.rs/">@swc/core</a> to automatically import it.</p>
+        <p>The idea came out of my work on <a href="https://github.com/sdegutis/imlib">imlib</a>.</p>
         <p>Also check out the <a href="https://github.com/sdegutis/vanillajsx.com/blob/main/site/index.html.tsx">source to this page</a>.</p>
       </div>
 
