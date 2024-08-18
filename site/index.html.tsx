@@ -15,7 +15,7 @@ export default <>
 
       <div id='root'>
         <h1>A case for vanilla JSX</h1>
-        <small>(Because vanilla is actually delicious.)</small>
+        <small>Join me in brainstorming <a href='https://github.com/sdegutis/imlib/issues/5'>how JSX might work natively</a>.</small>
 
         <Q>What if JSX just returned DOM elements?</Q>
         <Sample which="sample1" />
