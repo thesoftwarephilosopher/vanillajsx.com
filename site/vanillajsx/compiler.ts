@@ -1,9 +1,36 @@
 import babel from '@babel/standalone';
 
-const modules = new Map<string, any>();
+export const modules = new Map<string, Mod>();
 
-export async function compile(filename: string, code: string) {
+export class Mod {
 
+  #run;
+  #exports?: any;
+
+  constructor(
+    public code: string,
+    public filename: string,
+    public container: HTMLElement,
+  ) {
+    this.#run = compile(this.filename, this.code);
+    modules.set(filename, this);
+  }
+
+  async run() {
+    await this.require();
+    this.container.append(this.#exports.default());
+  }
+
+  async require() {
+    if (!this.#exports) {
+      this.#exports = await this.#run();
+    }
+    return this.#exports;
+  }
+
+}
+
+function compile(filename: string, code: string) {
   const result = babel.transform(code, {
     filename: filename,
     plugins: [
@@ -20,9 +47,8 @@ export async function compile(filename: string, code: string) {
     new(...paramsAndCode: string[]): (...args: any[]) => Promise<any>;
   });
 
-  const fn = new AynscFunction('define', 'return await ' + result.code!);
-  const exported = await fn(define);
-
+  const runCode = new AynscFunction('define', 'return await ' + result.code!);
+  return () => runCode(define);
 }
 
 async function define(params: string[], fn: (...args: any[]) => void) {
@@ -35,6 +61,14 @@ async function define(params: string[], fn: (...args: any[]) => void) {
     }
     else if (param === '/@imlib/jsx-runtime') {
       args.push(await import('/@imlib/jsx-browser.js' as any));
+    }
+    else if (param.match(/^[./]/)) {
+      try {
+        args.push(await import(param));
+      }
+      catch {
+        args.push(await modules.get(param)!.require());
+      }
     }
     else {
       args.push(await import(`https://cdn.jsdelivr.net/npm/${param}/+esm`));
