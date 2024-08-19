@@ -76,6 +76,7 @@ a:hover {
   overflow: auto;
   background-color: #1e1e1e;
   padding: 20px;
+  overflow: visible !important;
 }
 
 .sample-code {
