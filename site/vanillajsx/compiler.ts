@@ -13,7 +13,7 @@ export class Compiler {
       sourceMaps: 'inline',
       module: { type: 'es6' },
       plugin: (program) => {
-        return this.#renameImports(program, browserFilePath);
+        return this.#renameImports(program);
       },
       jsc: {
         parser: {
@@ -36,15 +36,13 @@ export class Compiler {
     return result;
   }
 
-  #renameImports(program: swc.Program, browserFilePath?: string): swc.Program {
-    if (browserFilePath) {
-      for (const imp of program.body) {
-        if (imp.type === 'ImportDeclaration') {
-          const dep = imp.source.value;
-          if (!dep.match(/^[./]/)) {
-            delete imp.source.raw;
-            imp.source.value = `https://cdn.jsdelivr.net/npm/${dep}/+esm`;
-          }
+  #renameImports(program: swc.Program): swc.Program {
+    for (const imp of program.body) {
+      if (imp.type === 'ImportDeclaration') {
+        const dep = imp.source.value;
+        if (!dep.match(/^[./]/)) {
+          delete imp.source.raw;
+          imp.source.value = `https://cdn.jsdelivr.net/npm/${dep}/+esm`;
         }
       }
     }
