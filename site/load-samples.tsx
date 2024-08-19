@@ -6,6 +6,7 @@ import { Mod, modules } from './vanillajsx/compiler.js';
 monaco.languages.typescript.typescriptDefaults.addExtraLib(jsxlib(), `ts:filename/jsx.d.ts`);
 monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   jsx: monaco.languages.typescript.JsxEmit.ReactNative,
+  target: monaco.languages.typescript.ScriptTarget.ESNext,
 });
 
 const highlighter = await createHighlighter({
@@ -19,7 +20,7 @@ monaco.languages.register({ id: 'tsx' });
 shikiToMonaco(highlighter as any, monaco);
 
 for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
-  const code = sample.querySelector('.sample-code>pre')!.textContent!;
+  const code = sample.querySelector('.sample-code>pre')!.textContent!.trim();
   const filename = `./${sample.dataset['sample']}.js`;
   const container = sample.querySelector('.sample-output') as HTMLElement;
 
@@ -27,15 +28,21 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
   const rect = codeEl.getBoundingClientRect();
   codeEl.innerHTML = '';
 
+  const uri = monaco.Uri.parse(`ts:filename/${sample.dataset['sample']}.tsx`);
+  const model = monaco.editor.createModel(code, 'typescript', uri);
+
   const editor = monaco.editor.create(codeEl, {
     language: "typescript",
     lineNumbers: 'off',
     fontSize: 12,
     folding: false,
     theme: "dark-plus",
-    value: code,
+    scrollBeyondLastLine: false,
+    model,
     tabSize: 2,
   });
+
+  codeEl.classList.remove('extrapadding');
 
   rect.width -= 40;
   rect.height -= 40;
@@ -44,11 +51,11 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
   new Mod(code, filename, container);
 
   const rerun = throttled(500, () => {
-    const code = editor.getModel()!.getValue();
+    const code = model.getValue();
     new Mod(code, filename, container).run();
   });
 
-  editor.onDidChangeModelContent(rerun);
+  model.onDidChangeContent(rerun);
 }
 
 for (const mod of modules.values()) {

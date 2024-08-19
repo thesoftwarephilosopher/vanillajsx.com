@@ -76,11 +76,25 @@ a:hover {
   overflow: auto;
   background-color: #1e1e1e;
   padding: 20px;
-  font-family: Consolas, "Courier New", monospace;
-  font-size: 12px;
 }
 
 .sample-code {
+
+  pre {
+    margin: 0;
+
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+
+  &.extrapadding {
+    pre {
+      padding-left: 10.5px;
+    }
+  }
 
   .view-src {
     font-size: smaller;

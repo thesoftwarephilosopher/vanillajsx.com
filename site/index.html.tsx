@@ -53,7 +53,7 @@ function Sample(attrs: { which: string }) {
   const file = files.find(f => f.path.includes(attrs.which))!;
   return (
     <div class='sample' data-sample={attrs.which}>
-      <div class='sample-code'>
+      <div class='sample-code extrapadding'>
         <pre>
           <code>
             {file.module!.source.replace(/</g, '&lt;')}
