@@ -1,4 +1,11 @@
 import babel from '@babel/standalone';
+import { names } from '../data.js';
+
+const data = new Map(
+  Map.groupBy(names(), s => s)
+    .entries()
+    .map(([k, v]) => [k, v.length])
+);
 
 export const modules = new Map<string, Mod>();
 
@@ -53,8 +60,8 @@ function compile(filename: string, code: string) {
     new(...paramsAndCode: string[]): (...args: any[]) => Promise<any>;
   });
 
-  const runCode = new AynscFunction('define', 'return await ' + result.code!);
-  return () => runCode(define);
+  const runCode = new AynscFunction('define', 'data', 'return await ' + result.code!);
+  return () => runCode(define, data);
 }
 
 async function define(params: string[], fn: (...args: any[]) => void) {

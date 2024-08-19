@@ -1,4 +1,4 @@
-import { data } from "../fetch-dataset.js";
+declare const data: Map<string, number>;
 // Names of US citizens born in 1882 from ssa.gov
 
 export default function FindNames() {
@@ -14,13 +14,12 @@ export default function FindNames() {
   updateMatches();
   function updateMatches() {
     const regex = new RegExp(`(${input.value})`, 'gi');
-    const matched = (data.entries()
-      .filter(([k]) => k.match(regex))
-      .toArray());
+    const matched = ([...data.entries()]
+      .filter(([k]) => k.match(regex)));
 
-    const matches = (Iterator.from(matched)
-      .map(match => <Item regex={regex} match={match} />)
-      .take(25));
+    const matches = (matched
+      .slice(0, 25)
+      .map(match => <Item regex={regex} match={match} />));
 
     results.replaceChildren(...matches);
     status.textContent = `${matched.length} / ${data.size}`;

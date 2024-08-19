@@ -1,10 +1,4 @@
-export const data = new Map(
-  Map.groupBy(names(), s => s)
-    .entries()
-    .map(([k, v]) => [k, v.length])
-);
-
-function names() {
+export function names() {
   return `
     Mary,Anna,Emma,Elizabeth,Minnie,Margaret,Ida,Alice,Bertha,Annie,Clara,Sarah,Florence,Martha,Ella,Grace,Laura,Bessie,Nellie,Maude,Cora,Carrie,Mabel,Ethel,Mattie,Gertrude,
     Jennie,Rose,Edith,Hattie,Helen,Lillian,Pearl,Louise,Julia,Lillie,Jessie,Myrtle,Edna,Lula,Eva,Catherine,Lena,Ada,Frances,Lucy,Fannie,Daisy,Josephine,Maggie,Dora,Katherine,
