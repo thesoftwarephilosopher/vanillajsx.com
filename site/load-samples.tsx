@@ -35,6 +35,7 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
     language: "typescript",
     lineNumbers: 'off',
     fontSize: 12,
+    minimap: { enabled: false },
     folding: false,
     theme: "dark-plus",
     scrollBeyondLastLine: false,
