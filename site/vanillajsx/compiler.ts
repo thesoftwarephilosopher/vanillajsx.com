@@ -1,9 +1,6 @@
 import * as swc from '@swc/core';
-import { readFileSync } from 'fs';
 
 export class Compiler {
-
-  packageJson = JSON.parse(readFileSync('package.json').toString('utf8'));
 
   compile(code: string, realFilePath?: string, browserFilePath?: string) {
     let prefix = '';
@@ -55,20 +52,9 @@ export class Compiler {
       for (const imp of program.body) {
         if (imp.type === 'ImportDeclaration') {
           const dep = imp.source.value;
-          const version = (
-            this.packageJson.devDependencies[dep] ??
-            this.packageJson.dependencies[dep]
-          );
-          if (version) {
+          if (!dep.match(/^[./]/)) {
             delete imp.source.raw;
-            imp.source.value = `https://cdn.jsdelivr.net/npm/${dep}@${version}/+esm`;
-          }
-          else {
-            const typeDep = '@types/' + dep.replace(/^@(.+?)\/(.+)/, '$1__$2');
-            if (this.packageJson.devDependencies[typeDep]) {
-              delete imp.source.raw;
-              imp.source.value = `https://cdn.jsdelivr.net/npm/${dep}/+esm`;
-            }
+            imp.source.value = `https://cdn.jsdelivr.net/npm/${dep}/+esm`;
           }
         }
       }
