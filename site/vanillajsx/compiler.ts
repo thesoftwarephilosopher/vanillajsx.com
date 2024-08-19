@@ -1,48 +1,47 @@
-import * as swc from '@swc/core';
+import babel from '@babel/standalone';
 
-export function compile(code: string, browserFilePath: string) {
-  let prefix = '';
-  if (!browserFilePath.startsWith('/@imlib/')) {
-    const levels = browserFilePath.match(/\//g)!.length - 1;
-    prefix = '.' + '/..'.repeat(levels);
-  }
+const modules = new Map<string, any>();
 
-  const opts: swc.Options = {
-    sourceMaps: 'inline',
-    module: { type: 'es6' },
-    plugin: (program) => {
-      return renameImports(program);
-    },
-    jsc: {
-      parser: {
-        syntax: 'typescript',
-        tsx: true,
-      },
-      target: 'esnext',
-      transform: {
-        react: {
-          runtime: 'automatic',
-          importSource: '/@imlib',
-          throwIfNamespace: false,
-        }
-      }
-    }
-  };
+export async function compile(filename: string, code: string) {
 
-  const result = swc.transformSync(code, opts);
-  result.code = result.code.replace(/"\/@imlib\/jsx-runtime"/g, `"${prefix}/@imlib/jsx-browser.js"`);
-  return result;
+  const result = babel.transform(code, {
+    filename: filename,
+    plugins: [
+      babel.availablePlugins["transform-modules-amd"]!,
+      [babel.availablePlugins["transform-typescript"]!, { isTSX: true }],
+      [babel.availablePlugins["transform-react-jsx"]!, {
+        runtime: 'automatic',
+        importSource: '/@imlib',
+      }],
+    ],
+  });
+
+  const AynscFunction = (async function () { }.constructor as {
+    new(...paramsAndCode: string[]): (...args: any[]) => Promise<any>;
+  });
+
+  const fn = new AynscFunction('define', 'return await ' + result.code!);
+  const exported = await fn(define);
+
 }
 
-function renameImports(program: swc.Program): swc.Program {
-  for (const imp of program.body) {
-    if (imp.type === 'ImportDeclaration') {
-      const dep = imp.source.value;
-      if (!dep.match(/^[./]/)) {
-        delete imp.source.raw;
-        imp.source.value = `https://cdn.jsdelivr.net/npm/${dep}/+esm`;
-      }
+async function define(params: string[], fn: (...args: any[]) => void) {
+  const exports = Object.create(null);
+  const args: any[] = [];
+
+  for (const param of params) {
+    if (param === 'exports') {
+      args.push(exports);
+    }
+    else if (param === '/@imlib/jsx-runtime') {
+      args.push(await import('/@imlib/jsx-browser.js' as any));
+    }
+    else {
+      args.push(await import(`https://cdn.jsdelivr.net/npm/${param}/+esm`));
     }
   }
-  return program;
+
+  fn(...args);
+
+  return exports;
 }

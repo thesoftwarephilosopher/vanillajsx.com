@@ -10,6 +10,7 @@
       "node",
       "@imlib/core/runtime.d.ts"
     ],
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "noImplicitAny": true,
     "exactOptionalPropertyTypes": true,
