@@ -49,11 +49,10 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
   rect.height -= 40;
   editor.layout(rect);
 
-  new Mod(code, filename, container);
+  const mod = new Mod(code, filename, container);
 
   const rerun = throttled(500, () => {
-    const code = model.getValue();
-    new Mod(code, filename, container).run();
+    mod.update(model.getValue());
   });
 
   model.onDidChangeContent(rerun);

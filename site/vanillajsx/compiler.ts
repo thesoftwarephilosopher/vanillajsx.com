@@ -34,6 +34,13 @@ export class Mod {
     }
   }
 
+  async update(code: string) {
+    this.code = code;
+    this.#exports = undefined;
+    this.#run = compile(this.filename, this.code);
+    this.run();
+  }
+
   async require() {
     if (!this.#exports) {
       this.#exports = await this.#run();
