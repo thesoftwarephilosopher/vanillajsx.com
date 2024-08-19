@@ -23,7 +23,6 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
   const model = monaco.editor.createModel(code, 'typescript', uri);
 
   const editor = monaco.editor.create(codeEl, {
-    language: "typescript",
     lineNumbers: 'off',
     fontSize: 12,
     lineDecorationsWidth: 0,
