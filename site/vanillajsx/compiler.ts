@@ -17,8 +17,14 @@ export class Mod {
   }
 
   async run() {
-    await this.require();
-    this.container.append(this.#exports.default());
+    try {
+      await this.require();
+      this.container.replaceChildren(this.#exports.default());
+    }
+    catch (e) {
+      console.log('error')
+      console.error(e)
+    }
   }
 
   async require() {

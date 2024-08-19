@@ -74,7 +74,10 @@ a:hover {
 
 .sample-code {
   overflow: auto;
-  padding: 0 1em 0.25em;
+  background-color: #1e1e1e;
+  padding: 20px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 12px;
 }
 
 .sample-code {
