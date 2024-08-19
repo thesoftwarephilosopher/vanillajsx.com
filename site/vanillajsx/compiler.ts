@@ -13,7 +13,7 @@ export class Mod {
 
   #run;
   #exports?: any;
-  neededBy = new Set<string>();
+  neededBy = new Set<Mod>();
 
   constructor(
     public code: string,
@@ -42,25 +42,22 @@ export class Mod {
     this.run();
 
     for (const needed of this.neededBy) {
-      const other = modules.get(needed);
-      if (other) {
-        console.log('Updating', needed)
-        other.update(other.code);
-      }
+      console.log('Updating', needed.filename)
+      needed.update(needed.code);
     }
   }
 
   async require() {
     if (!this.#exports) {
       for (const mod of modules.values()) {
-        mod.neededBy.delete(this.filename);
+        mod.neededBy.delete(this);
       }
 
       const result = await this.#run();
       this.#exports = result.exports;
 
       for (const need of result.needs) {
-        modules.get(need)?.neededBy.add(this.filename);
+        need.neededBy.add(this);
       }
     }
     return this.#exports;
@@ -84,7 +81,7 @@ function compile(filename: string, code: string) {
   const AynscFunction = (async function () { }.constructor as {
     new(...paramsAndCode: string[]): (...args: any[]) => Promise<{
       exports: any,
-      needs: string[],
+      needs: Mod[],
     }>;
   });
 
@@ -96,7 +93,7 @@ async function define(params: string[], fn: (...args: any[]) => void) {
   const exports = Object.create(null);
   const args: any[] = [];
 
-  const needs: string[] = [];
+  const needs: Mod[] = [];
 
   for (const param of params) {
     if (param === 'exports') {
@@ -110,8 +107,9 @@ async function define(params: string[], fn: (...args: any[]) => void) {
         args.push(await import(param));
       }
       catch {
-        needs.push(param);
-        args.push(await modules.get(param)!.require());
+        const dep = modules.get(param)!;
+        needs.push(dep);
+        args.push(await dep.require());
       }
     }
     else {
