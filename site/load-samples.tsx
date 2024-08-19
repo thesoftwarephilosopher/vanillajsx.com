@@ -26,6 +26,7 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
     language: "typescript",
     lineNumbers: 'off',
     fontSize: 12,
+    lineDecorationsWidth: 0,
     minimap: { enabled: false },
     folding: false,
     theme: "vs-dark",
@@ -33,8 +34,6 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
     model,
     tabSize: 2,
   });
-
-  codeEl.classList.remove('extrapadding');
 
   rect.width -= 40;
   rect.height -= 40;

@@ -91,12 +91,6 @@ a:hover {
     }
   }
 
-  &.extrapadding {
-    pre {
-      padding-left: 10.5px;
-    }
-  }
-
   .view-src {
     font-size: smaller;
     float: right;
