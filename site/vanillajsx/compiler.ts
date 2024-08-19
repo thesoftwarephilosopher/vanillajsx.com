@@ -103,14 +103,9 @@ async function define(params: string[], fn: (...args: any[]) => void) {
       args.push(await import('/@imlib/jsx-browser.js' as any));
     }
     else if (param.match(/^[./]/)) {
-      try {
-        args.push(await import(param));
-      }
-      catch {
-        const dep = modules.get(param)!;
-        needs.push(dep);
-        args.push(await dep.require());
-      }
+      const dep = modules.get(param)!;
+      needs.push(dep);
+      args.push(await dep.require());
     }
     else {
       args.push(await import(`https://cdn.jsdelivr.net/npm/${param}/+esm`));
