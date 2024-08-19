@@ -1,6 +1,4 @@
 import monaco from '@imlib/monaco-esm';
-import { shikiToMonaco } from '@shikijs/monaco';
-import { createHighlighter } from 'shiki';
 import { Mod, modules } from './vanillajsx/compiler.js';
 
 monaco.languages.typescript.typescriptDefaults.addExtraLib(jsxlib(), `ts:filename/jsx.d.ts`);
@@ -9,15 +7,8 @@ monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   target: monaco.languages.typescript.ScriptTarget.ESNext,
 });
 
-const highlighter = await createHighlighter({
-  themes: ['dark-plus'],
-  langs: ['tsx'],
-});
-
 monaco.languages.register({ id: 'typescript' });
 monaco.languages.register({ id: 'tsx' });
-
-shikiToMonaco(highlighter as any, monaco);
 
 for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
   const code = sample.querySelector('.sample-code>pre')!.textContent!.trim();
@@ -37,7 +28,7 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
     fontSize: 12,
     minimap: { enabled: false },
     folding: false,
-    theme: "dark-plus",
+    theme: "vs-dark",
     scrollBeyondLastLine: false,
     model,
     tabSize: 2,
