@@ -27,9 +27,11 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
     fontSize: 12,
     lineDecorationsWidth: 0,
     minimap: { enabled: false },
+    guides: { indentation: false },
     folding: false,
     theme: "vs-dark",
     scrollBeyondLastLine: false,
+    renderLineHighlightOnlyWhenFocus: true,
     model,
     tabSize: 2,
   });
