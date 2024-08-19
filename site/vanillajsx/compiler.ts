@@ -2,9 +2,9 @@ import * as swc from '@swc/core';
 
 export class Compiler {
 
-  compile(code: string, realFilePath?: string, browserFilePath?: string) {
+  compile(code: string, browserFilePath: string) {
     let prefix = '';
-    if (browserFilePath && !browserFilePath.startsWith('/@imlib/')) {
+    if (!browserFilePath.startsWith('/@imlib/')) {
       const levels = browserFilePath.match(/\//g)!.length - 1;
       prefix = '.' + '/..'.repeat(levels);
     }
@@ -31,19 +31,8 @@ export class Compiler {
       }
     };
 
-    if (realFilePath) {
-      opts.module!.type = 'commonjs';
-      opts.sourceFileName = realFilePath;
-      // options.sourceMapOptions = { compiledFilename: realFilePath };
-      // options.filePath = pathToFileURL(realFilePath).href;
-    }
     const result = swc.transformSync(code, opts);
-    if (realFilePath) {
-      result.code = result.code.replace(/"\/@imlib\/jsx-runtime"/g, `"/@imlib/jsx-node.js"`);
-    }
-    else {
-      result.code = result.code.replace(/"\/@imlib\/jsx-runtime"/g, `"${prefix}/@imlib/jsx-browser.js"`);
-    }
+    result.code = result.code.replace(/"\/@imlib\/jsx-runtime"/g, `"${prefix}/@imlib/jsx-browser.js"`);
     return result;
   }
 

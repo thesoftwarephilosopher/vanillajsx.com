@@ -1,19 +1,15 @@
-import { Module } from "./module";
-import { Runtime } from "./runtime";
+import { Compiler } from "./compiler.js";
 
 export class File {
-
-  module?: Module;
 
   constructor(
     public path: string,
     public content: Buffer | string,
-    runtime: Runtime,
+    compiler: Compiler,
   ) {
     if (path.match(/\.tsx?$/)) {
       const code = content.toString('utf8');
-      this.module = new Module(code, this.path, runtime);
-      this.content = runtime.compiler.compile(code, undefined, path).code;
+      this.content = compiler.compile(code, path).code;
       this.path = convertTsExts(path);
     }
   }
