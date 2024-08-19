@@ -13,6 +13,7 @@ export class Mod {
 
   #run;
   #exports?: any;
+  neededBy = new Set<string>();
 
   constructor(
     public code: string,
@@ -39,11 +40,28 @@ export class Mod {
     this.#exports = undefined;
     this.#run = compile(this.filename, this.code);
     this.run();
+
+    for (const needed of this.neededBy) {
+      const other = modules.get(needed);
+      if (other) {
+        console.log('Updating', needed)
+        other.update(other.code);
+      }
+    }
   }
 
   async require() {
     if (!this.#exports) {
-      this.#exports = await this.#run();
+      for (const mod of modules.values()) {
+        mod.neededBy.delete(this.filename);
+      }
+
+      const result = await this.#run();
+      this.#exports = result.exports;
+
+      for (const need of result.needs) {
+        modules.get(need)?.neededBy.add(this.filename);
+      }
     }
     return this.#exports;
   }
@@ -64,7 +82,10 @@ function compile(filename: string, code: string) {
   });
 
   const AynscFunction = (async function () { }.constructor as {
-    new(...paramsAndCode: string[]): (...args: any[]) => Promise<any>;
+    new(...paramsAndCode: string[]): (...args: any[]) => Promise<{
+      exports: any,
+      needs: string[],
+    }>;
   });
 
   const runCode = new AynscFunction('define', 'data', 'return await ' + result.code!);
@@ -74,6 +95,8 @@ function compile(filename: string, code: string) {
 async function define(params: string[], fn: (...args: any[]) => void) {
   const exports = Object.create(null);
   const args: any[] = [];
+
+  const needs: string[] = [];
 
   for (const param of params) {
     if (param === 'exports') {
@@ -87,6 +110,7 @@ async function define(params: string[], fn: (...args: any[]) => void) {
         args.push(await import(param));
       }
       catch {
+        needs.push(param);
         args.push(await modules.get(param)!.require());
       }
     }
@@ -97,5 +121,5 @@ async function define(params: string[], fn: (...args: any[]) => void) {
 
   fn(...args);
 
-  return exports;
+  return { exports, needs };
 }
