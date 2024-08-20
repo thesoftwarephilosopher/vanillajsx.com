@@ -7,6 +7,15 @@ monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   target: monaco.languages.typescript.ScriptTarget.ESNext,
 });
 
+monaco.editor.defineTheme('vsc2', {
+  base: 'vs-dark',
+  inherit: true,
+  rules: [],
+  colors: {
+    "editor.background": '#1b1f25',
+  },
+});
+
 monaco.languages.register({ id: 'typescript' });
 monaco.languages.register({ id: 'tsx' });
 
@@ -29,7 +38,7 @@ for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
     minimap: { enabled: false },
     guides: { indentation: false },
     folding: false,
-    theme: "vs-dark",
+    theme: "vsc2",
     scrollBeyondLastLine: false,
     renderLineHighlightOnlyWhenFocus: true,
     model,
