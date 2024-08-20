@@ -1,4 +1,5 @@
 import monaco from '@imlib/monaco-esm';
+import { tokenProvider } from './token-provider.js';
 import { Mod, modules } from './vanillajsx/compiler.js';
 
 monaco.languages.typescript.typescriptDefaults.addExtraLib(jsxlib(), `ts:filename/jsx.d.ts`);
@@ -16,8 +17,7 @@ monaco.editor.defineTheme('vsc2', {
   },
 });
 
-monaco.languages.register({ id: 'typescript' });
-monaco.languages.register({ id: 'tsx' });
+monaco.languages.setMonarchTokensProvider('typescript', tokenProvider);
 
 for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
   const code = sample.querySelector('.sample-code>pre')!.textContent!.trim();
