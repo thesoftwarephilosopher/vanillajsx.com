@@ -33,6 +33,18 @@ export const tokenProvider: monaco.languages.IMonarchLanguage = {
     root: [[/[{}]/, 'delimiter.bracket'], { include: 'common' }],
 
     common: [
+      // ...spread
+      [/\.\.\./, 'delimiter'],
+
+      // foo(
+      [/(#?[a-z_][\w]*)(\()/, ['method', 'delimiter']],
+
+      // Foo(
+      [/([A-Z][\w]*)(\()/, ['function', 'delimiter']],
+
+      // .property
+      [/(\.)(#?[\w$]*)/, ['delimiter', 'property']],
+
       // identifiers and keywords
       [/#?[a-z_$][\w$]*/, { cases: { '@keywords': 'keyword', '@default': 'identifier' } }],
       [/[A-Z][\w\$]*/, 'type.identifier'],
