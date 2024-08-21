@@ -8,27 +8,17 @@ export const tokenProvider: monaco.languages.IMonarchLanguage = {
   tokenPostfix: '.ts',
 
   keywords: [
-    // Should match the keys of textToKeywordObj in
-    // https://github.com/microsoft/TypeScript/blob/master/src/compiler/scanner.ts
-    'abstract', 'any', 'as', 'asserts', 'bigint', 'boolean', 'break', 'case', 'catch',
-    'class', 'continue', 'const', 'constructor', 'debugger', 'declare', 'default',
-    'delete', 'do', 'else', 'enum', 'export', 'extends', 'false', 'finally', 'for',
-    'from', 'function', 'get', 'if', 'implements', 'import', 'in', 'infer', 'instanceof',
-    'interface', 'is', 'keyof', 'let', 'module', 'namespace', 'never', 'new', 'null',
-    'number', 'object', 'out', 'package', 'private', 'protected', 'public', 'override',
-    'readonly', 'require', 'global', 'return', 'satisfies', 'set', 'static', 'string',
-    'super', 'switch', 'symbol', 'this', 'throw', 'true', 'try', 'type', 'typeof',
-    'undefined', 'unique', 'unknown', 'var', 'void', 'while', 'with', 'yield', 'async',
-    'await', 'of'],
+    'abstract', 'any', 'as', 'asserts', 'bigint', 'boolean', 'break', 'case', 'catch', 'class', 'continue', 'const', 'constructor', 'debugger', 'declare', 'default',
+    'delete', 'do', 'else', 'enum', 'export', 'extends', 'false', 'finally', 'for', 'from', 'function', 'get', 'if', 'implements', 'import', 'in', 'infer', 'instanceof',
+    'interface', 'is', 'keyof', 'let', 'module', 'namespace', 'never', 'new', 'null', 'number', 'object', 'out', 'package', 'private', 'protected', 'public', 'override',
+    'readonly', 'require', 'global', 'return', 'satisfies', 'set', 'static', 'string', 'super', 'switch', 'symbol', 'this', 'throw', 'true', 'try', 'type', 'typeof',
+    'undefined', 'unique', 'unknown', 'var', 'void', 'while', 'with', 'yield', 'async', 'await', 'of'],
 
   operators: [
-    '<=', '>=', '==', '!=', '===', '!==', '=>', '+', '-', '**', '*', '/', '%',
-    '++', '--', '<<', '</', '>>', '>>>', '&', '|', '^', '!', '~', '&&', '||',
-    '??', '?', ':', '=', '+=', '-=', '*=', '**=', '/=', '%=', '<<=', '>>=',
-    '>>>=', '&=', '|=', '^=', '@'
+    '<=', '>=', '==', '!=', '===', '!==', '=>', '+', '-', '**', '*', '/', '%', '++', '--', '<<', '</', '>>', '>>>', '&', '|', '^', '!', '~', '&&', '||',
+    '??', '?', ':', '=', '+=', '-=', '*=', '**=', '/=', '%=', '<<=', '>>=', '>>>=', '&=', '|=', '^=', '@'
   ],
 
-  // we include these common regular expressions
   symbols: /[=><!~?:&|+\-*\/\^%]+/,
   escapes: /\\(?:[abfnrtv\\"']|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,
   digits: /\d+(_+\d+)*/,
@@ -39,46 +29,25 @@ export const tokenProvider: monaco.languages.IMonarchLanguage = {
   regexpctl: /[(){}\[\]\$\^|\-*+?\.]/,
   regexpesc: /\\(?:[bBdDfnrstvwWn0\\\/]|@regexpctl|c[A-Z]|x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4})/,
 
-  // The main tokenizer for our languages
   tokenizer: {
     root: [[/[{}]/, 'delimiter.bracket'], { include: 'common' }],
 
     common: [
       // identifiers and keywords
-      [
-        /#?[a-z_$][\w$]*/,
-        {
-          cases: {
-            '@keywords': 'keyword',
-            '@default': 'identifier'
-          }
-        }
-      ],
-      [/[A-Z][\w\$]*/, 'type.identifier'], // to show class names nicely
-      // [/[A-Z][\w\$]*/, 'identifier'],
+      [/#?[a-z_$][\w$]*/, { cases: { '@keywords': 'keyword', '@default': 'identifier' } }],
+      [/[A-Z][\w\$]*/, 'type.identifier'],
 
       // whitespace
       { include: '@whitespace' },
 
-      // regular expression: ensure it is terminated before beginning (otherwise it is an opeator)
-      [
-        /\/(?=([^\\\/]|\\.)+\/([dgimsuy]*)(\s*)(\.|;|,|\)|\]|\}|$))/,
-        { token: 'regexp', bracket: '@open', next: '@regexp' }
-      ],
+      // regular expression: ensure it is terminated before beginning (otherwise it is an operator)
+      [/\/(?=([^\\\/]|\\.)+\/([dgimsuy]*)(\s*)(\.|;|,|\)|\]|\}|$))/, { token: 'regexp', bracket: '@open', next: '@regexp' }],
 
       // delimiters and operators
       [/[()\[\]]/, '@brackets'],
       [/[<>](?!@symbols)/, '@brackets'],
       [/!(?=([^=]|$))/, 'delimiter'],
-      [
-        /@symbols/,
-        {
-          cases: {
-            '@operators': 'delimiter',
-            '@default': ''
-          }
-        }
-      ],
+      [/@symbols/, { cases: { '@operators': 'delimiter', '@default': '' } }],
 
       // numbers
       [/(@digits)[eE]([\-+]?(@digits))?/, 'number.float'],
@@ -96,45 +65,39 @@ export const tokenProvider: monaco.languages.IMonarchLanguage = {
       [/'([^'\\]|\\.)*$/, 'string.invalid'], // non-teminated string
       [/"/, 'string', '@string_double'],
       [/'/, 'string', '@string_single'],
-      [/`/, 'string', '@string_backtick']
+      [/`/, 'string', '@string_backtick'],
     ],
 
     whitespace: [
       [/[ \t\r\n]+/, ''],
       [/\/\*\*(?!\/)/, 'comment.doc', '@jsdoc'],
       [/\/\*/, 'comment', '@comment'],
-      [/\/\/.*$/, 'comment']
+      [/\/\/.*$/, 'comment'],
     ],
 
     comment: [
       [/[^\/*]+/, 'comment'],
       [/\*\//, 'comment', '@pop'],
-      [/[\/*]/, 'comment']
+      [/[\/*]/, 'comment'],
     ],
 
     jsdoc: [
       [/[^\/*]+/, 'comment.doc'],
       [/\*\//, 'comment.doc', '@pop'],
-      [/[\/*]/, 'comment.doc']
+      [/[\/*]/, 'comment.doc'],
     ],
 
     // We match regular expression quite precisely
     regexp: [
-      [
-        /(\{)(\d+(?:,\d*)?)(\})/,
-        ['regexp.escape.control', 'regexp.escape.control', 'regexp.escape.control']
-      ],
-      [
-        /(\[)(\^?)(?=(?:[^\]\\\/]|\\.)+)/,
-        ['regexp.escape.control', { token: 'regexp.escape.control', next: '@regexrange' }]
-      ],
+      [/(\{)(\d+(?:,\d*)?)(\})/, ['regexp.escape.control', 'regexp.escape.control', 'regexp.escape.control']],
+      [/(\[)(\^?)(?=(?:[^\]\\\/]|\\.)+)/, ['regexp.escape.control', { token: 'regexp.escape.control', next: '@regexrange' }]],
       [/(\()(\?:|\?=|\?!)/, ['regexp.escape.control', 'regexp.escape.control']],
       [/[()]/, 'regexp.escape.control'],
       [/@regexpctl/, 'regexp.escape.control'],
       [/[^\\\/]/, 'regexp'],
       [/@regexpesc/, 'regexp.escape'],
       [/\\\./, 'regexp.invalid'],
-      [/(\/)([dgimsuy]*)/, [{ token: 'regexp', bracket: '@close', next: '@pop' }, 'keyword.other']]
+      [/(\/)([dgimsuy]*)/, [{ token: 'regexp', bracket: '@close', next: '@pop' }, 'keyword.other']],
     ],
 
     regexrange: [
@@ -142,28 +105,21 @@ export const tokenProvider: monaco.languages.IMonarchLanguage = {
       [/\^/, 'regexp.invalid'],
       [/@regexpesc/, 'regexp.escape'],
       [/[^\]]/, 'regexp'],
-      [
-        /\]/,
-        {
-          token: 'regexp.escape.control',
-          next: '@pop',
-          bracket: '@close'
-        }
-      ]
+      [/\]/, { token: 'regexp.escape.control', next: '@pop', bracket: '@close' }],
     ],
 
     string_double: [
       [/[^\\"]+/, 'string'],
       [/@escapes/, 'string.escape'],
       [/\\./, 'string.escape.invalid'],
-      [/"/, 'string', '@pop']
+      [/"/, 'string', '@pop'],
     ],
 
     string_single: [
       [/[^\\']+/, 'string'],
       [/@escapes/, 'string.escape'],
       [/\\./, 'string.escape.invalid'],
-      [/'/, 'string', '@pop']
+      [/'/, 'string', '@pop'],
     ],
 
     string_backtick: [
@@ -171,13 +127,13 @@ export const tokenProvider: monaco.languages.IMonarchLanguage = {
       [/[^\\`$]+/, 'string'],
       [/@escapes/, 'string.escape'],
       [/\\./, 'string.escape.invalid'],
-      [/`/, 'string', '@pop']
+      [/`/, 'string', '@pop'],
     ],
 
     bracketCounting: [
       [/\{/, 'delimiter.bracket', '@bracketCounting'],
       [/\}/, 'delimiter.bracket', '@pop'],
-      { include: 'common' }
+      { include: 'common' },
     ]
   }
 };
