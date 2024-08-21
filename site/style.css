@@ -26,15 +26,19 @@ h1 {
   margin-bottom: 3em;
 }
 
-a {
-  text-decoration: underline;
-  color: #478be6;
-  text-underline-offset: 3px;
-  transition: text-underline-offset 200ms ease-in-out;
-}
+@scope (html) to (.sample-code) {
 
-a:hover {
-  text-underline-offset: 5px;
+  a {
+    text-decoration: underline;
+    color: #478be6;
+    text-underline-offset: 3px;
+    transition: text-underline-offset 200ms ease-in-out;
+  }
+
+  a:hover {
+    text-underline-offset: 5px;
+  }
+
 }
 
 .sample {
