@@ -2,6 +2,14 @@
 // vs-dark monaco: https://github.com/microsoft/vscode/blob/main/src/vs/editor/standalone/common/themes.ts#L82
 // dark-plus vscode: https://github.com/microsoft/vscode/blob/main/extensions/theme-defaults/themes/dark_plus.json
 
+/**
+ * Differences from official typescript monarch token provider:
+ * 
+ * 1. `...` is highlighted as a keyword now
+ * 2. `export/etc` are highlighted as control-flow keywords
+ * 
+ */
+
 export const rules = [
   // { token: "identifier.ts", foreground: "9CDCFE" },
   { token: "property.ts", foreground: "9CDCFE" },
