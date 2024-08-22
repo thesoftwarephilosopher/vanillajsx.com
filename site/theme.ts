@@ -1,16 +1,11 @@
 import monaco from '@imlib/monaco-esm';
+import monacoTypes from 'monaco-editor';
 
-export function setupTheme() {
+export function setupTheme(rules: monacoTypes.editor.ITokenThemeRule[]) {
   monaco.editor.defineTheme('vsc2', {
     base: 'vs-dark',
     inherit: true,
-    rules: [
-      // { token: "identifier.ts", foreground: "9CDCFE" },
-      { token: "property.ts", foreground: "9CDCFE" },
-      { token: "function.ts", foreground: "DCDCAA" },
-      { token: "method.ts", foreground: "DCDCAA" },
-      // { token: "delimiter.ts", foreground: "569CD6" },
-    ],
+    rules: rules,
     colors: {
       "editor.background": '#1b1f25',
     },

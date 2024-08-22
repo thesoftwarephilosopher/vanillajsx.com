@@ -2,6 +2,14 @@
 // vs-dark monaco: https://github.com/microsoft/vscode/blob/main/src/vs/editor/standalone/common/themes.ts#L82
 // dark-plus vscode: https://github.com/microsoft/vscode/blob/main/extensions/theme-defaults/themes/dark_plus.json
 
+export const rules = [
+  // { token: "identifier.ts", foreground: "9CDCFE" },
+  { token: "property.ts", foreground: "9CDCFE" },
+  { token: "function.ts", foreground: "DCDCAA" },
+  { token: "method.ts", foreground: "DCDCAA" },
+  { token: "delimiter.ts", foreground: "569CD6" },
+];
+
 export const tokenProvider = {
 
   defaultToken: 'invalid',

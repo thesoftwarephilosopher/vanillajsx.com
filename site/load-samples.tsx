@@ -1,7 +1,7 @@
 import monaco from '@imlib/monaco-esm';
 import type monacoTypes from 'monaco-editor';
 import { setupTheme } from './theme.js';
-import { tokenProvider } from './token-provider.js';
+import { rules, tokenProvider } from './token-provider.js';
 import { Mod, modules } from './vanillajsx/compiler.js';
 
 monaco.languages.typescript.typescriptDefaults.addExtraLib(jsxlib(), `ts:filename/jsx.d.ts`);
@@ -10,7 +10,7 @@ monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   target: monaco.languages.typescript.ScriptTarget.ESNext,
 });
 
-setupTheme();
+setupTheme(rules);
 
 monaco.languages.setMonarchTokensProvider('typescript', tokenProvider as monacoTypes.languages.IMonarchLanguage);
 

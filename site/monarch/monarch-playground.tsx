@@ -1,7 +1,8 @@
 import monaco from '@imlib/monaco-esm';
 import { setupTheme } from '../theme.js';
+import { rules } from '../token-provider.js';
 
-setupTheme();
+setupTheme(rules);
 
 // monaco.languages.typescript.typescriptDefaults.addExtraLib(jsxlib(), `ts:filename/jsx.d.ts`);
 monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
@@ -50,8 +51,8 @@ const editor2 = monaco.editor.create(editorContainer2, {
   tabSize: 2,
 });
 
-editor1.layout({ width: 700, height: 900 });
-editor2.layout({ width: 700, height: 900 });
+editor1.layout({ width: 700, height: 1250 });
+editor2.layout({ width: 700, height: 1250 });
 
 updateTokenProvider();
 editor1.onDidChangeModelContent(updateTokenProvider);
@@ -62,5 +63,7 @@ async function updateTokenProvider() {
   const url = URL.createObjectURL(blob);
   const mod = await import(url);
   URL.revokeObjectURL(url);
+
   monaco.languages.setMonarchTokensProvider('typescript', mod.tokenProvider);
+  setupTheme(mod.rules);
 }
