@@ -67,3 +67,7 @@ async function updateTokenProvider() {
   monaco.languages.setMonarchTokensProvider('typescript', mod.tokenProvider);
   setupTheme(mod.rules);
 }
+
+window.onbeforeunload = (e) => {
+  if (!confirm('Lose progress!?')) e.preventDefault();
+}
