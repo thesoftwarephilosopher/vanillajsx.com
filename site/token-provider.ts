@@ -55,12 +55,18 @@ export const tokenProvider = {
   tokenizer: {
     root: [[/[{}]/, 'delimiter.bracket'], { include: 'common' }],
 
+    newtype: [
+      [/\s+/, ''],
+      [/\w+/, 'type.identifier', '@pop'],
+    ],
+
     common: [
       // identifiers and keywords
       [
         /#?[a-z_$][\w$]*/,
         {
           cases: {
+            'new': { token: 'keyword', next: '@newtype' },
             '@keywords': 'keyword',
             '@default': 'identifier'
           }
