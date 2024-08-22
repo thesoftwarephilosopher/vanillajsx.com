@@ -9,6 +9,7 @@
  * 2. `export/etc` are highlighted as control-flow keywords
  * 3. Class fields are highlighted as variables
  * 4. Highlight function/class def names properly
+ * 5. Highlight var/let/const names properly
  * 
  */
 
@@ -16,6 +17,8 @@ export const rules = [
   // { token: "identifier.ts", foreground: "9CDCFE" },
   { token: "variable.property.ts", foreground: "9CDCFE" },
   // { token: "function.ts", foreground: "DCDCAA" },
+  { token: "constant.ts", foreground: "4FC1FF" },
+  { token: "variable.ts", foreground: "9CDCFE" },
   { token: "method.ts", foreground: "DCDCAA" },
   // { token: "delimiter.ts", foreground: "569CD6" },
 ];
@@ -81,13 +84,21 @@ export const tokenProvider = {
         { token: 'keyword' },
         {
           cases: {
-            '$1~function\\s+': { token: 'method' },
-            '$1~class\\s+': { token: 'type.identifier' },
-            '': { token: 'string.sql' },
+            '$1~function\\s+': 'method',
+            '$1~class\\s+': 'type.identifier',
+            '@default': 'identifier',
           }
         },
         { token: '@rematch' },
       ]],
+
+      // highlight var/const/let defs nicely
+      [/((?:const|let|var)\s+)(#?[\w$]+)/, ['keyword', {
+        cases: {
+          '$1~const\\s+': 'constant',
+          '@default': 'variable',
+        }
+      }]],
 
       // identifiers and keywords
       [/#?[a-z_$][\w$]*/, {
