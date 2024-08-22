@@ -56,6 +56,8 @@ export const tokenProvider = {
     root: [
       [/[{}]/, 'delimiter.bracket'],
       [/^\s+#?[\w$]+(?=\s*[;=:])/, 'property'],
+      [/^\s+(constructor|super)(?=\s*[(])/, 'keyword'],
+      [/^\s+#?[\w$]+(?=\s*[(])/, 'method'],
       { include: 'common' },
     ],
 
@@ -83,8 +85,7 @@ export const tokenProvider = {
           }
         }
       ],
-      [/[A-Z][\w\$]*/, 'type.identifier'], // to show class names nicely
-      // [/[A-Z][\w\$]*/, 'identifier'],
+      [/[A-Z][\w\$]*/, 'type.identifier'],
 
       // whitespace
       { include: '@whitespace' },
