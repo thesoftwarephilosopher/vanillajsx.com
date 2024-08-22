@@ -92,6 +92,8 @@ export const tokenProvider = {
         }
       ],
 
+      [/\.\.\./, 'keyword'],
+
       // numbers
       [/(@digits)[eE]([\-+]?(@digits))?/, 'number.float'],
       [/(@digits)\.(@digits)([eE][\-+]?(@digits))?/, 'number.float'],
