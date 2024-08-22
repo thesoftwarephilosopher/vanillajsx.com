@@ -71,8 +71,9 @@ export const tokenProvider = {
       [/[\w$]+/, 'function', '@pop'],
     ],
 
-    common: [
-      // identifiers and keywords
+    ident: [
+      // [/#?[\w$]+\s*(?=[<(])/, 'method'],
+      // [/#?[\w$]+\s*(?=[=.])/, 'property'],
       [
         /#?[a-z_$][\w$]*/,
         {
@@ -80,15 +81,18 @@ export const tokenProvider = {
             'new': { token: 'keyword', next: '@newtype' },
             'function': { token: 'keyword', next: '@function' },
             // 'class': { token: 'keyword', next: '@function' }, // TODO: uncomment after JSX works
-            '@keywords': 'keyword',
-            '@default': 'identifier'
+            '@keywords': { token: 'keyword', next: '@pop' },
+            '@default': { token: 'identifier', next: '@pop' },
           }
         }
       ],
       [/[A-Z][\w\$]*/, 'type.identifier'],
+      [/./, '@rematch', '@pop'],
+    ],
 
-      // [/#?[\w$]+\s*(?=[<(])/, 'method'],
-      // [/#?[\w$]+\s*(?=[=.])/, 'property'],
+    common: [
+      // identifiers and keywords
+      [/#?[a-zA-Z_$][\w$]*/, '@rematch', '@ident'],
 
       // whitespace
       { include: '@whitespace' },
