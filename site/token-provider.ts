@@ -8,6 +8,7 @@
  * 1. `...` is highlighted as a keyword
  * 2. `export/etc` are highlighted as control-flow keywords
  * 3. Class fields are highlighted as variables
+ * 4. Highlight function/class def names properly
  * 
  */
 
@@ -74,17 +75,28 @@ export const tokenProvider = {
     ],
 
     common: [
-      // identifiers and keywords
-      [
-        /#?[a-z_$][\w$]*/,
+
+      // highlight function/class defs nicely
+      [/((?:function|class)\s+)(#?[\w$]+\s*)([<(]?)/, [
+        { token: 'keyword' },
         {
           cases: {
-            '@ctrlKeywords': 'keyword.flow',
-            '@keywords': 'keyword',
-            '@default': 'identifier',
+            '$1~function\\s+': { token: 'method' },
+            '$1~class\\s+': { token: 'type.identifier' },
+            '': { token: 'string.sql' },
           }
+        },
+        { token: '@rematch' },
+      ]],
+
+      // identifiers and keywords
+      [/#?[a-z_$][\w$]*/, {
+        cases: {
+          '@ctrlKeywords': 'keyword.flow',
+          '@keywords': 'keyword',
+          '@default': 'identifier',
         }
-      ],
+      }],
       [/[A-Z][\w\$]*/, 'type.identifier'], // to show class names nicely
       // [/[A-Z][\w\$]*/, 'identifier'],
 

@@ -5,6 +5,9 @@ function foo$<K, V, T extends Map<K, V>>(): Required<ReturnType<T['clear']>> {
   return null as any;
 }
 
+(function () { const foo = 3; })();
+(class { bar = 4; });
+
 function foo$two<T>(a: any) {
   return undefined as T;
 }
