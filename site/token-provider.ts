@@ -5,11 +5,12 @@
 /**
  * Differences from official typescript monarch token provider:
  * 
- * 1. `...` is highlighted as a keyword
- * 2. `export/etc` are highlighted as control-flow keywords
- * 3. Class fields are highlighted as variables
- * 4. Highlight function/class def names properly
- * 5. Highlight var/let/const names properly
+ * 1. Highlight `...` as a keyword
+ * 2. Highlight `export/etc` as control-flow keywords
+ * 3. Highlight class fields
+ * 4. Highlight function/class names
+ * 5. Highlight var/let/const names
+ * 6. Highlight new Foo
  * 
  */
 
@@ -78,12 +79,13 @@ export const tokenProvider = {
       [/^\s*#?[\w$]+(?=\s*[;=:])/, 'variable.property'],
 
       // highlight function/class defs
-      [/((?:function|class)\s+)(#?[\w$]+\s*)([<(]?)/, [
+      [/((?:function|class|new)\s+)(#?[\w$]+\s*)([<(]?)/, [
         { token: 'keyword' },
         {
           cases: {
             '$1~function\\s+': 'method',
             '$1~class\\s+': 'type.identifier',
+            '$1~new\\s+': 'type.identifier',
             '@default': 'identifier',
           }
         },
