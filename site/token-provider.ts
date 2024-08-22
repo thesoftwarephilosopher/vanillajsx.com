@@ -54,13 +54,9 @@ export const tokenProvider = {
   // The main tokenizer for our languages
   tokenizer: {
     root: [
-
       [/[{}]/, 'delimiter.bracket'],
-
       [/^\s+#?[\w$]+(?=\s*[;=:])/, 'property'],
-
       { include: 'common' },
-
     ],
 
     newtype: [
@@ -81,7 +77,7 @@ export const tokenProvider = {
           cases: {
             'new': { token: 'keyword', next: '@newtype' },
             'function': { token: 'keyword', next: '@function' },
-            // 'class': { token: 'keyword', next: '@function' },
+            // 'class': { token: 'keyword', next: '@function' }, // TODO: uncomment after JSX works
             '@keywords': 'keyword',
             '@default': 'identifier'
           }
