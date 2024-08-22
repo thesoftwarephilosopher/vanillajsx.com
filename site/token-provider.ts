@@ -7,7 +7,7 @@ export const rules = [
   { token: "property.ts", foreground: "9CDCFE" },
   { token: "function.ts", foreground: "DCDCAA" },
   { token: "method.ts", foreground: "DCDCAA" },
-  { token: "delimiter.ts", foreground: "569CD6" },
+  // { token: "delimiter.ts", foreground: "569CD6" },
 ];
 
 export const tokenProvider = {
