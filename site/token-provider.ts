@@ -8,7 +8,6 @@
  * 1. `...` is highlighted as a keyword
  * 2. `export/etc` are highlighted as control-flow keywords
  * 3. Class fields are highlighted as variables
- * 4. Type params are highlighted separate from JSX
  * 
  */
 
@@ -77,20 +76,12 @@ export const tokenProvider = {
     common: [
       // identifiers and keywords
       [
-        /(#?[a-z_$][\w$]*)([<(]?)/,
+        /#?[a-z_$][\w$]*/,
         {
           cases: {
             '@ctrlKeywords': 'keyword.flow',
             '@keywords': 'keyword',
-            'super\\(': 'keyword',
-            'constructor\\(': 'keyword',
-            '@default': {
-              cases: {
-                '$2==<': ['method', { token: '@brackets', next: '@typeparams' }],
-                '$2==(': ['method', ''],
-                '@default': 'identifier',
-              }
-            },
+            '@default': 'identifier',
           }
         }
       ],
@@ -139,11 +130,6 @@ export const tokenProvider = {
       [/"/, 'string', '@string_double'],
       [/'/, 'string', '@string_single'],
       [/`/, 'string', '@string_backtick']
-    ],
-
-    typeparams: [
-      [/>/, '@brackets', '@pop'],
-      { include: 'common' }
     ],
 
     whitespace: [
