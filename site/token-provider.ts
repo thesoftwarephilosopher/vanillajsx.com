@@ -15,20 +15,25 @@ export const tokenProvider = {
   defaultToken: 'invalid',
   tokenPostfix: '.ts',
 
+  ctrlKeywords: [
+    'export', 'default', 'return', 'as', 'if', 'break', 'case', 'catch', 'continue',
+    'do', 'else', 'finally', 'for', 'throw', 'try', 'with', 'yield', 'await',
+  ],
+
   keywords: [
     // Should match the keys of textToKeywordObj in
     // https://github.com/microsoft/TypeScript/blob/master/src/compiler/scanner.ts
-    'abstract', 'any', 'as', 'asserts', 'bigint', 'boolean', 'break',
-    'case', 'catch', 'class', 'continue', 'const', 'constructor', 'debugger',
-    'declare', 'default', 'delete', 'do', 'else', 'enum', 'export',
-    'extends', 'false', 'finally', 'for', 'from', 'function', 'get',
-    'if', 'implements', 'import', 'in', 'infer', 'instanceof', 'interface',
+    'abstract', 'any', 'asserts', 'bigint', 'boolean',
+    'class', 'const', 'constructor', 'debugger',
+    'declare', 'delete', 'enum',
+    'extends', 'false', 'from', 'function', 'get',
+    'implements', 'import', 'in', 'infer', 'instanceof', 'interface',
     'is', 'keyof', 'let', 'module', 'namespace', 'never', 'new',
     'null', 'number', 'object', 'out', 'package', 'private', 'protected',
-    'public', 'override', 'readonly', 'require', 'global', 'return', 'satisfies',
+    'public', 'override', 'readonly', 'require', 'global', 'satisfies',
     'set', 'static', 'string', 'super', 'switch', 'symbol', 'this',
-    'throw', 'true', 'try', 'type', 'typeof', 'undefined', 'unique',
-    'unknown', 'var', 'void', 'while', 'with', 'yield', 'async', 'await', 'of'
+    'true', 'type', 'typeof', 'undefined', 'unique',
+    'unknown', 'var', 'void', 'while', 'async', 'of'
   ],
 
   operators: [
@@ -61,6 +66,7 @@ export const tokenProvider = {
         /#?[a-z_$][\w$]*/,
         {
           cases: {
+            '@ctrlKeywords': 'keyword.flow',
             '@keywords': 'keyword',
             '@default': 'identifier'
           }
