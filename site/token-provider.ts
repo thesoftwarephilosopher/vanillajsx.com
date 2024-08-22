@@ -57,12 +57,12 @@ export const tokenProvider = {
 
     newtype: [
       [/\s+/, ''],
-      [/\w+/, 'type.identifier', '@pop'],
+      [/[\w$]+/, 'type.identifier', '@pop'],
     ],
 
     function: [
       [/\s+/, ''],
-      [/\w+/, 'function', '@pop'],
+      [/[\w$]+/, 'function', '@pop'],
     ],
 
     common: [
