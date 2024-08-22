@@ -73,6 +73,7 @@ export const tokenProvider = {
           cases: {
             'new': { token: 'keyword', next: '@newtype' },
             'function': { token: 'keyword', next: '@function' },
+            // 'class': { token: 'keyword', next: '@function' },
             '@keywords': 'keyword',
             '@default': 'identifier'
           }
