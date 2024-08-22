@@ -73,13 +73,11 @@ export const tokenProvider = {
   tokenizer: {
     root: [
       [/[{}]/, 'delimiter.bracket'],
+
+      // highlight class field-properties
       [/^\s*#?[\w$]+(?=\s*[;=:])/, 'variable.property'],
-      { include: 'common' },
-    ],
 
-    common: [
-
-      // highlight function/class defs nicely
+      // highlight function/class defs
       [/((?:function|class)\s+)(#?[\w$]+\s*)([<(]?)/, [
         { token: 'keyword' },
         {
@@ -97,13 +95,18 @@ export const tokenProvider = {
         },
       ]],
 
-      // highlight var/const/let defs nicely
+      // highlight var/const/let defs
       [/((?:const|let|var)\s+)(#?[\w$]+)/, ['keyword', {
         cases: {
           '$1~const\\s+': 'constant',
           '@default': 'variable',
         }
       }]],
+
+      { include: 'common' },
+    ],
+
+    common: [
 
       // identifiers and keywords
       [/#?[a-z_$][\w$]*/, {
@@ -113,8 +116,7 @@ export const tokenProvider = {
           '@default': 'identifier',
         }
       }],
-      [/[A-Z][\w\$]*/, 'type.identifier'], // to show class names nicely
-      // [/[A-Z][\w\$]*/, 'identifier'],
+      [/[A-Z][\w\$]*/, 'type.identifier'],
 
       // whitespace
       { include: '@whitespace' },
