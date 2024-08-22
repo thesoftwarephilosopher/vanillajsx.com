@@ -7,14 +7,15 @@
  * 
  * 1. `...` is highlighted as a keyword now
  * 2. `export/etc` are highlighted as control-flow keywords
+ * 3. Class fields are highlighted as variables
  * 
  */
 
 export const rules = [
   // { token: "identifier.ts", foreground: "9CDCFE" },
-  { token: "property.ts", foreground: "9CDCFE" },
-  { token: "function.ts", foreground: "DCDCAA" },
-  { token: "method.ts", foreground: "DCDCAA" },
+  { token: "variable.property.ts", foreground: "9CDCFE" },
+  // { token: "function.ts", foreground: "DCDCAA" },
+  // { token: "method.ts", foreground: "DCDCAA" },
   // { token: "delimiter.ts", foreground: "569CD6" },
 ];
 
@@ -66,7 +67,11 @@ export const tokenProvider = {
 
   // The main tokenizer for our languages
   tokenizer: {
-    root: [[/[{}]/, 'delimiter.bracket'], { include: 'common' }],
+    root: [
+      [/[{}]/, 'delimiter.bracket'],
+      [/^\s*#?[\w$]+(?=\s*[;=:])/, 'variable.property'],
+      { include: 'common' },
+    ],
 
     common: [
       // identifiers and keywords
