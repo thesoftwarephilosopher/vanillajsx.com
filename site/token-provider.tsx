@@ -39,6 +39,9 @@ export const tokenProvider: monaco.languages.IMonarchLanguage = {
       // foo(
       [/(#?[a-z_][\w\$]*)(\()/, ['method', 'delimiter']],
 
+      // new Foo(
+      [/(new\s+)([A-Z][\w\$]*)(\()/, ['keyword', 'type.identifier', 'delimiter']],
+
       // Foo(
       [/([A-Z][\w\$]*)(\()/, ['function', 'delimiter']],
 
@@ -57,6 +60,9 @@ export const tokenProvider: monaco.languages.IMonarchLanguage = {
 
       // regular expression: ensure it is terminated before beginning (otherwise it is an operator)
       [/\/(?=([^\\\/]|\\.)+\/([dgimsuy]*)(\s*)(\.|;|,|\)|\]|\}|$))/, { token: 'regexp', bracket: '@open', next: '@regexp' }],
+
+      // type params (to avoid parsing them as jsx)
+      [/</, 'delimiter', '@typeparams'],
 
       // delimiters and operators
       [/[()\[\]]/, '@brackets'],
@@ -143,6 +149,11 @@ export const tokenProvider: monaco.languages.IMonarchLanguage = {
       [/@escapes/, 'string.escape'],
       [/\\./, 'string.escape.invalid'],
       [/`/, 'string', '@pop'],
+    ],
+
+    typeparams: [
+      [/>/, 'delimiter', '@pop'],
+      { include: 'common' },
     ],
 
     bracketCounting: [
