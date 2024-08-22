@@ -25,6 +25,10 @@ document.getElementById('root')?.append(<>
   {editorContainer2}
 </>);
 
+const status = <div style='opacity:0.5' /> as HTMLDivElement;
+
+document.body.append(status);
+
 const editor1 = monaco.editor.create(editorContainer1, {
   lineNumbers: 'off',
   fontSize: 12,
@@ -53,8 +57,8 @@ const editor2 = monaco.editor.create(editorContainer2, {
   tabSize: 2,
 });
 
-editor1.layout({ width: 700, height: 1200 });
-editor2.layout({ width: 700, height: 1200 });
+editor1.layout({ width: 900, height: 1200 });
+editor2.layout({ width: 900, height: 1200 });
 
 _updateTokenProvider();
 editor1.onDidChangeModelContent(throttle(200, _updateTokenProvider));
@@ -63,11 +67,19 @@ async function _updateTokenProvider() {
   const code = editor1.getModel()!.getValue();
   const blob = new Blob([code], { type: 'text/javascript' });
   const url = URL.createObjectURL(blob);
-  const mod = await import(url);
-  URL.revokeObjectURL(url);
 
-  monaco.languages.setMonarchTokensProvider('typescript', mod.tokenProvider);
-  setupTheme(mod.rules);
+  try {
+    const mod = await import(url);
+    URL.revokeObjectURL(url);
+
+    monaco.languages.setMonarchTokensProvider('typescript', mod.tokenProvider);
+    setupTheme(mod.rules);
+
+    status.textContent = '';
+  }
+  catch (e: any) {
+    status.textContent = e.message;
+  }
 }
 
 window.onbeforeunload = (e) => {
