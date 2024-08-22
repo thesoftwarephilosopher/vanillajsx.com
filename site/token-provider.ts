@@ -53,7 +53,15 @@ export const tokenProvider = {
 
   // The main tokenizer for our languages
   tokenizer: {
-    root: [[/[{}]/, 'delimiter.bracket'], { include: 'common' }],
+    root: [
+
+      [/[{}]/, 'delimiter.bracket'],
+
+      [/^\s+#?[\w$]+(?=\s*[;=:])/, 'property'],
+
+      { include: 'common' },
+
+    ],
 
     newtype: [
       [/\s+/, ''],
