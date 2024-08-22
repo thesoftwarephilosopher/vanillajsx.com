@@ -79,17 +79,14 @@ export const tokenProvider = {
       [/^\s*#?[\w$]+(?=\s*[;=:])/, 'variable.property'],
 
       // highlight function/class defs
-      [/((?:function|class|new)\s+)(#?[\w$]+\s*)([<(]?)/, [
-        { token: 'keyword' },
+      [/(function|class|new)(\s+)(#?[\w$]+)(\s*)([<(]?)/, ['keyword', '',
         {
           cases: {
-            '$1~function\\s+': 'method',
-            '$1~class\\s+': 'type.identifier',
-            '$1~new\\s+': 'type.identifier',
-            '@default': 'identifier',
+            '$1==function': 'method',
+            '$1==class': 'type.identifier',
+            '$1==new': 'type.identifier',
           }
-        },
-        {
+        }, '', {
           cases: {
             '<': { token: '@brackets', next: '@typeparams' },
             '@default': '@rematch',
@@ -98,9 +95,9 @@ export const tokenProvider = {
       ]],
 
       // highlight var/const/let defs
-      [/((?:const|let|var)\s+)(#?[\w$]+)/, ['keyword', {
+      [/(const|let|var)(\s+)(#?[\w$]+)/, ['keyword', '', {
         cases: {
-          '$1~const\\s+': 'constant',
+          '$1==const': 'constant',
           '@default': 'variable',
         }
       }]],
