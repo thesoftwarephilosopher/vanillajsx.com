@@ -7,4 +7,10 @@ body {
     display: flex;
     gap: 1em;
   }
+
+  #root > * {
+    padding: 1em;
+    border-radius: 7px;
+    background-color: #1b1f25;
+  }
 }

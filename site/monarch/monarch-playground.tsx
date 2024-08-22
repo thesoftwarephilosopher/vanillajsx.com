@@ -51,8 +51,8 @@ const editor2 = monaco.editor.create(editorContainer2, {
   tabSize: 2,
 });
 
-editor1.layout({ width: 700, height: 1250 });
-editor2.layout({ width: 700, height: 1250 });
+editor1.layout({ width: 700, height: 1200 });
+editor2.layout({ width: 700, height: 1200 });
 
 updateTokenProvider();
 editor1.onDidChangeModelContent(updateTokenProvider);
