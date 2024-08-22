@@ -1,6 +1,6 @@
 // sample 0
 
-document.querySelectorAll<HTMLElement>('.sample');
+document.querySelectorAll<HTMLElement /* foo */>('.sample');
 function foo$<K, V, T extends Map<K, V>>(): Required<ReturnType<T['clear']>> {
   return null as any;
 }
@@ -47,7 +47,7 @@ function TodoInput(attrs: { add: (v: string) => void }) {
   return input;
 }
 
-class todoList$1 {
+class todoList$1<T extends {}> {
   ul = <ul class='todolist' /> as HTMLUListElement;
   add(v: string) {
     const item = <li>{v}</li> as HTMLLIElement;

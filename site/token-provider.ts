@@ -89,7 +89,12 @@ export const tokenProvider = {
             '@default': 'identifier',
           }
         },
-        { token: '@rematch' },
+        {
+          cases: {
+            '<': { token: '@brackets', next: '@typeparams' },
+            '@default': '@rematch',
+          }
+        },
       ]],
 
       // highlight var/const/let defs nicely
@@ -153,6 +158,11 @@ export const tokenProvider = {
       [/"/, 'string', '@string_double'],
       [/'/, 'string', '@string_single'],
       [/`/, 'string', '@string_backtick']
+    ],
+
+    typeparams: [
+      [/>/, '@brackets', '@pop'],
+      { include: 'common' }
     ],
 
     whitespace: [
