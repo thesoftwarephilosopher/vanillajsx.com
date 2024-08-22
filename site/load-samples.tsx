@@ -1,4 +1,6 @@
 import monaco from '@imlib/monaco-esm';
+import type monacoTypes from 'monaco-editor';
+import { setupTheme } from './theme.js';
 import { tokenProvider } from './token-provider.js';
 import { Mod, modules } from './vanillajsx/compiler.js';
 
@@ -8,22 +10,9 @@ monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
   target: monaco.languages.typescript.ScriptTarget.ESNext,
 });
 
-monaco.editor.defineTheme('vsc2', {
-  base: 'vs-dark',
-  inherit: true,
-  rules: [
-    // { token: "identifier.ts", foreground: "9CDCFE" },
-    { token: "property.ts", foreground: "9CDCFE" },
-    { token: "function.ts", foreground: "DCDCAA" },
-    { token: "method.ts", foreground: "DCDCAA" },
-    // { token: "delimiter.ts", foreground: "569CD6" },
-  ],
-  colors: {
-    "editor.background": '#1b1f25',
-  },
-});
+setupTheme();
 
-monaco.languages.setMonarchTokensProvider('typescript', tokenProvider);
+monaco.languages.setMonarchTokensProvider('typescript', tokenProvider as monacoTypes.languages.IMonarchLanguage);
 
 for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
   const code = sample.querySelector('.sample-code>pre')!.textContent!.trim();

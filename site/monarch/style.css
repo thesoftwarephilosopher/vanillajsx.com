@@ -1,0 +1,10 @@
+body {
+  background-color: #22272e;
+  color: #c5d1de;
+  font-family: system-ui;
+
+  #root {
+    display: flex;
+    gap: 1em;
+  }
+}
