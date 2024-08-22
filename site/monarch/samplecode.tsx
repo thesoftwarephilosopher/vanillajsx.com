@@ -44,7 +44,7 @@ function TodoInput(attrs: { add: (v: string) => void }) {
   return input;
 }
 
-class TodoList$1 {
+class todoList$1 {
   ul = <ul class='todolist' /> as HTMLUListElement;
   add(v: string) {
     const item = <li>{v}</li> as HTMLLIElement;
@@ -54,7 +54,7 @@ class TodoList$1 {
 }
 
 export const sample3 = () => {
-  const list = new TodoList$1();
+  const list = new todoList$1();
   list.add('foo');
   list.add('bar');
   return <>

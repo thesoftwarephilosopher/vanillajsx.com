@@ -113,8 +113,10 @@ export const tokenProvider = {
       [/0[bB](@binarydigits)n?/, 'number.binary'],
       [/(@digits)n?/, 'number'],
 
+      [/\./, '@rematch', '@dot'],
+
       // delimiter: after number because of .\d floats
-      [/[;,.]/, 'delimiter'],
+      [/[;,]/, 'delimiter'],
 
       // strings
       [/"([^"\\]|\\.)*$/, 'string.invalid'], // non-teminated string
@@ -122,6 +124,14 @@ export const tokenProvider = {
       [/"/, 'string', '@string_double'],
       [/'/, 'string', '@string_single'],
       [/`/, 'string', '@string_backtick']
+    ],
+
+    dot: [
+      [/\.\.\./, 'keyword', '@pop'],
+      [/#?[\w$]+\s*(?=[<(])/, 'method'],
+      [/#?[\w$]+\s*(?=[=.])/, 'property'],
+      [/\./, 'delimiter'],
+      [/./, '@rematch', '@pop'],
     ],
 
     whitespace: [
