@@ -53,46 +53,21 @@ export const tokenProvider = {
 
   // The main tokenizer for our languages
   tokenizer: {
-    root: [
-      [/[{}]/, 'delimiter.bracket'],
-      [/^\s+#?[\w$]+(?=\s*[;=:])/, 'property'],
-      [/^\s+(constructor|super)(?=\s*[(])/, 'keyword'],
-      [/^\s+#?[\w$]+(?=\s*[(])/, 'method'],
-      { include: 'common' },
-    ],
+    root: [[/[{}]/, 'delimiter.bracket'], { include: 'common' }],
 
-    newtype: [
-      [/\s+/, ''],
-      [/[\w$]+/, 'type.identifier', '@pop'],
-    ],
-
-    function: [
-      [/\s+/, ''],
-      [/[\w$]+/, 'function', '@pop'],
-    ],
-
-    ident: [
-      // [/#?[\w$]+\s*(?=[<(])/, 'method'],
-      // [/#?[\w$]+\s*(?=[=.])/, 'property'],
+    common: [
+      // identifiers and keywords
       [
         /#?[a-z_$][\w$]*/,
         {
           cases: {
-            'new': { token: 'keyword', next: '@newtype' },
-            'function': { token: 'keyword', next: '@function' },
-            // 'class': { token: 'keyword', next: '@function' }, // TODO: uncomment after JSX works
-            '@keywords': { token: 'keyword', next: '@pop' },
-            '@default': { token: 'identifier', next: '@pop' },
+            '@keywords': 'keyword',
+            '@default': 'identifier'
           }
         }
       ],
-      [/[A-Z][\w\$]*/, 'type.identifier'],
-      [/./, '@rematch', '@pop'],
-    ],
-
-    common: [
-      // identifiers and keywords
-      [/#?[a-zA-Z_$][\w$]*/, '@rematch', '@ident'],
+      [/[A-Z][\w\$]*/, 'type.identifier'], // to show class names nicely
+      // [/[A-Z][\w\$]*/, 'identifier'],
 
       // whitespace
       { include: '@whitespace' },
@@ -126,7 +101,6 @@ export const tokenProvider = {
       [/(@digits)n?/, 'number'],
 
       // delimiter: after number because of .\d floats
-      [/\.\.\./, 'keyword'],
       [/[;,.]/, 'delimiter'],
 
       // strings
