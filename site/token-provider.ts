@@ -136,14 +136,18 @@ export const tokenProvider = {
 
     jsxText: [
       [/{/, { token: 'keyword', next: '@root.INJSX', bracket: '@open' }],
-      [/<\/>/, 'keyword', '@pop'],
-      [/(<\/)([a-zA-Z_$][.\w$]*)(>)/, ['keyword',
-        {
-          cases: {
-            '$2==$S2': 'constant',
-            '@default': 'invalid',
-          }
-        }, { token: 'keyword', next: '@pop' }]
+      [/<\/>/, {
+        cases: {
+          '$S2==FRAGMENT': { token: 'keyword', next: '@pop' },
+          '@default': { token: 'invalid', next: '@pop' },
+        }
+      }],
+      [/(<\/)([a-zA-Z_$][.\w$]*)(>)/, {
+        cases: {
+          '$2==$S2': ['keyword', 'constant', { token: 'keyword', next: '@pop' }],
+          '@default': { token: 'invalid', next: '@pop' },
+        }
+      }
       ],
       { include: 'jsxReady' },
       [/./, 'string'],
