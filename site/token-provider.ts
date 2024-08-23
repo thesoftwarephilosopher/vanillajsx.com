@@ -74,6 +74,13 @@ export const tokenProvider = {
   // The main tokenizer for our languages
   tokenizer: {
     root: [
+      [/}/, {
+        cases: {
+          '$S2==INJSX': { token: 'invalid', bracket: '@close', next: '@pop' },
+          '@default': '@brackets',
+        }
+      }],
+
       [/[{}]/, 'delimiter.bracket'],
 
       // highlight class field-properties
@@ -119,6 +126,7 @@ export const tokenProvider = {
       [/ +([\w-]+)/, 'attribute.name'],
       [/(=)(')/, ['keyword', { token: 'string', next: '@string_single' }]],
       [/(=)(")/, ['keyword', { token: 'string', next: '@string_double' }]],
+      [/(=)({)/, ['keyword', { token: 'keyword', next: '@root.INJSX', bracket: '@open' }]],
     ],
 
     jsxText: [
