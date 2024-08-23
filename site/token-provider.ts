@@ -141,7 +141,7 @@ export const tokenProvider = {
         },
         {
           cases: {
-            '$2==<': { token: '@rematch', next: '@typeparams' },
+            '$2==<': { token: '@brackets', next: '@typeparams' },
             '@default': '@rematch',
           }
         },
