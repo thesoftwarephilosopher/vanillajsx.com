@@ -103,7 +103,36 @@ export const tokenProvider = {
         }
       }]],
 
+      { include: 'jsxReady' },
+
       { include: 'common' },
+    ],
+
+    jsxReady: [
+      [/<>/, 'keyword', '@jsxText.FRAGMENT'],
+      [/(<)([a-zA-Z_$][.\w]*)/, ['keyword', { token: 'constant', next: '@jsxOpen.$2' }]],
+    ],
+
+    jsxOpen: [
+      [/>/, { token: 'keyword', switchTo: '@jsxText.$S2' }],
+      [/\/>/, { token: 'keyword', next: '@pop' }],
+      [/ +([\w-]+)/, 'attribute.name'],
+      [/(=)(')/, ['keyword', { token: 'string', next: '@string_single' }]],
+      [/(=)(")/, ['keyword', { token: 'string', next: '@string_double' }]],
+    ],
+
+    jsxText: [
+      [/<\/>/, 'keyword', '@pop'],
+      [/(<\/)([a-zA-Z_$][.\w]*)(>)/, ['keyword',
+        {
+          cases: {
+            '$2==$S2': 'constant',
+            '@default': 'invalid',
+          }
+        }, { token: 'keyword', next: '@pop' }]
+      ],
+      { include: 'jsxReady' },
+      [/./, 'string'],
     ],
 
     common: [
