@@ -116,49 +116,6 @@ export const tokenProvider = {
       { include: 'common' },
     ],
 
-    jsxReady: [
-      [/<>/, 'delimiter.html', '@jsxText.FRAGMENT'],
-      [/(<)([a-zA-Z_$][.\w$]*)/, ['delimiter.html', {
-        cases: {
-          '[A-Z].*': { token: 'type.identifier', next: '@jsxOpen.$2' },
-          '': { token: 'constant', next: '@jsxOpen.$2' },
-        }
-      }]],
-    ],
-
-    jsxOpen: [
-      [/>/, { token: 'delimiter.html', switchTo: '@jsxText.$S2' }],
-      [/\/>/, { token: 'delimiter.html', next: '@pop' }],
-      [/ +([\w-$]+)/, 'attribute.name'],
-      [/(=)(')/, ['delimiter', { token: 'string', next: '@string_single' }]],
-      [/(=)(")/, ['delimiter', { token: 'string', next: '@string_double' }]],
-      [/(=)({)/, ['delimiter', { token: '@brackets', next: '@root.INJSX', bracket: '@open' }]],
-    ],
-
-    jsxText: [
-      [/{/, { token: 'keyword', next: '@root.INJSX', bracket: '@open' }],
-      [/<\/>/, {
-        cases: {
-          '$S2==FRAGMENT': { token: 'delimiter.html', next: '@pop' },
-          '@default': { token: 'invalid', next: '@pop' },
-        }
-      }],
-      [/(<\/)([a-zA-Z_$][.\w$]*)(>)/, {
-        cases: {
-          '$2==$S2': ['delimiter.html', {
-            cases: {
-              '[A-Z].*': 'type.identifier',
-              '@default': 'constant',
-            }
-          }, { token: 'delimiter.html', next: '@pop' }],
-          '@default': { token: 'invalid', next: '@pop' },
-        }
-      }
-      ],
-      { include: 'jsxReady' },
-      [/./, 'string'],
-    ],
-
     common: [
 
       // identifiers and keywords
@@ -227,6 +184,49 @@ export const tokenProvider = {
     typeparams: [
       [/>/, '@brackets', '@pop'],
       { include: 'common' }
+    ],
+
+    jsxReady: [
+      [/<>/, 'delimiter.html', '@jsxText.FRAGMENT'],
+      [/(<)([a-zA-Z_$][.\w$]*)/, ['delimiter.html', {
+        cases: {
+          '[A-Z].*': { token: 'type.identifier', next: '@jsxOpen.$2' },
+          '': { token: 'constant', next: '@jsxOpen.$2' },
+        }
+      }]],
+    ],
+
+    jsxOpen: [
+      [/>/, { token: 'delimiter.html', switchTo: '@jsxText.$S2' }],
+      [/\/>/, { token: 'delimiter.html', next: '@pop' }],
+      [/ +([\w-$]+)/, 'attribute.name'],
+      [/(=)(')/, ['delimiter', { token: 'string', next: '@string_single' }]],
+      [/(=)(")/, ['delimiter', { token: 'string', next: '@string_double' }]],
+      [/(=)({)/, ['delimiter', { token: '@brackets', next: '@root.INJSX', bracket: '@open' }]],
+    ],
+
+    jsxText: [
+      [/{/, { token: 'keyword', next: '@root.INJSX', bracket: '@open' }],
+      [/<\/>/, {
+        cases: {
+          '$S2==FRAGMENT': { token: 'delimiter.html', next: '@pop' },
+          '@default': { token: 'invalid', next: '@pop' },
+        }
+      }],
+      [/(<\/)([a-zA-Z_$][.\w$]*)(>)/, {
+        cases: {
+          '$2==$S2': ['delimiter.html', {
+            cases: {
+              '[A-Z].*': 'type.identifier',
+              '@default': 'constant',
+            }
+          }, { token: 'delimiter.html', next: '@pop' }],
+          '@default': { token: 'invalid', next: '@pop' },
+        }
+      }
+      ],
+      { include: 'jsxReady' },
+      [/./, 'string'],
     ],
 
     whitespace: [
