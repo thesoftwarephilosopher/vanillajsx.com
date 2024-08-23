@@ -22,9 +22,18 @@ foo$two(foo$());
 
 // sample 1
 
+const qux = {
+  bar(attrs: any) {
+    return 'test';
+  }
+};
+
 export function ClickMe() {
   let i = 0;
-  const el = <button>Click <b>me</b></button> as HTMLButtonElement;
+  const el = <button>Click
+    <qux.bar />
+    <qux.bar>hmm</qux.bar>
+    <b>me</b></button> as HTMLButtonElement;
   el.onclick = (e) => {
     el.textContent = `Clicked ${++i} times`;
   };
