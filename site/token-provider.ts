@@ -195,7 +195,6 @@ export const tokenProvider = {
     ],
 
     jsxIdent: [
-      [/\s/, ''],
       [/\./, { token: 'delimiter', switchTo: '$S0^' }],
       [/[A-Z][\w$]*/, { token: 'type.delimiter', switchTo: '$S0$0' }],
       [/[\w$]+/, { token: 'constant', switchTo: '$S0$0' }],
