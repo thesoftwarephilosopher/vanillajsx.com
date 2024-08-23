@@ -40,18 +40,22 @@ export const tokenProvider = {
     'import', 'from', 'type',
   ],
 
+  alwaysKeyword: [
+    'constructor', 'super',
+  ],
+
   keywords: [
     // Should match the keys of textToKeywordObj in
     // https://github.com/microsoft/TypeScript/blob/master/src/compiler/scanner.ts
     'abstract', 'asserts',
-    'class', 'const', 'constructor', 'debugger',
+    'class', 'const', 'debugger',
     'declare', 'delete', 'enum',
     'extends', 'false', 'function', 'get',
     'implements', 'in', 'infer', 'instanceof', 'interface',
     'is', 'keyof', 'let', 'module', 'namespace', 'never', 'new',
     'null', 'out', 'package', 'private', 'protected',
     'public', 'override', 'readonly', 'require', 'global', 'satisfies',
-    'set', 'static', 'super', 'switch', 'symbol', 'this',
+    'set', 'static', 'switch', 'symbol', 'this',
     'true', 'typeof', 'undefined', 'unique',
     'var', 'while', 'async', 'of'
   ],
@@ -127,10 +131,11 @@ export const tokenProvider = {
         {
           cases: {
             '@typeKeywords': 'type.identifier',
-            '@ctrlKeywords': 'keyword.flow',
-            '@keywords': 'keyword',
+            '@alwaysKeyword': 'keyword',
             '$1~#?[A-Z].*': 'type.identifier',
             '$2': 'method',
+            '@ctrlKeywords': 'keyword.flow',
+            '@keywords': 'keyword',
             '@default': 'identifier',
           }
         },
