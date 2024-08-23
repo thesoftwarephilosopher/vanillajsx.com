@@ -12,6 +12,7 @@
  * 5. Highlight var/let/const names
  * 6. Highlight new Foo
  * 7. Highlight function/method calls
+ * 8. Highlight JSX
  * 
  */
 
@@ -130,6 +131,7 @@ export const tokenProvider = {
     ],
 
     jsxText: [
+      [/{/, { token: 'keyword', next: '@root.INJSX', bracket: '@open' }],
       [/<\/>/, 'keyword', '@pop'],
       [/(<\/)([a-zA-Z_$][.\w]*)(>)/, ['keyword',
         {
