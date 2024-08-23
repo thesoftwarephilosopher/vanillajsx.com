@@ -189,12 +189,17 @@ export const tokenProvider = {
 
     jsxReady: [
       [/<>/, 'delimiter.html', '@jsxText.FRAGMENT'],
-      [/(<)([a-zA-Z_$][.\w$]*)/, ['delimiter.html', {
-        cases: {
-          '[A-Z].*': { token: 'type.identifier', next: '@jsxOpen.$2' },
-          '': { token: 'constant', next: '@jsxOpen.$2' },
-        }
-      }]],
+      [/(<)(\s*)([\w$])/, ['delimiter.html', '',
+        { token: '@rematch', next: '@jsxIdent.jsxOpen.' },
+      ]],
+    ],
+
+    jsxIdent: [
+      [/\s/, ''],
+      [/\./, { token: 'delimiter', switchTo: '$S0^' }],
+      [/[A-Z][\w$]*/, { token: 'type.delimiter', switchTo: '$S0$0' }],
+      [/[\w$]+/, { token: 'constant', switchTo: '$S0$0' }],
+      [/.+/, { token: '@rematch', switchTo: '@$S2.$S3.$S4' }],
     ],
 
     jsxOpen: [
@@ -214,20 +219,20 @@ export const tokenProvider = {
           '@default': { token: 'invalid', next: '@pop' },
         }
       }],
-      [/(<\/)([a-zA-Z_$][.\w$]*)(>)/, {
-        cases: {
-          '$2==$S2': ['delimiter.html', {
-            cases: {
-              '[A-Z].*': 'type.identifier',
-              '@default': 'constant',
-            }
-          }, { token: 'delimiter.html', next: '@pop' }],
-          '@default': { token: 'invalid', next: '@pop' },
-        }
-      }
-      ],
+      [/(<\/)(\s*)([\w$])/, ['delimiter.html', '',
+        { token: '@rematch', switchTo: '@jsxIdent.jsxClose.$S2.' },
+      ]],
       { include: 'jsxReady' },
       [/./, 'string'],
+    ],
+
+    jsxClose: [
+      [/>/, {
+        cases: {
+          '$S2==$S3': { token: 'delimiter.html', next: '@pop' },
+          '@default': { token: 'invalid', next: '@pop' },
+        }
+      }],
     ],
 
     whitespace: [
