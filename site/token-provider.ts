@@ -117,7 +117,7 @@ export const tokenProvider = {
 
     jsxReady: [
       [/<>/, 'keyword', '@jsxText.FRAGMENT'],
-      [/(<)([a-zA-Z_$][.\w]*)/, ['keyword', {
+      [/(<)([a-zA-Z_$][.\w$]*)/, ['keyword', {
         cases: {
           '[A-Z].*': { token: 'type.identifier', next: '@jsxOpen.$2' },
           '': { token: 'constant', next: '@jsxOpen.$2' },
@@ -128,7 +128,7 @@ export const tokenProvider = {
     jsxOpen: [
       [/>/, { token: 'keyword', switchTo: '@jsxText.$S2' }],
       [/\/>/, { token: 'keyword', next: '@pop' }],
-      [/ +([\w-]+)/, 'attribute.name'],
+      [/ +([\w-$]+)/, 'attribute.name'],
       [/(=)(')/, ['keyword', { token: 'string', next: '@string_single' }]],
       [/(=)(")/, ['keyword', { token: 'string', next: '@string_double' }]],
       [/(=)({)/, ['keyword', { token: 'keyword', next: '@root.INJSX', bracket: '@open' }]],
@@ -137,7 +137,7 @@ export const tokenProvider = {
     jsxText: [
       [/{/, { token: 'keyword', next: '@root.INJSX', bracket: '@open' }],
       [/<\/>/, 'keyword', '@pop'],
-      [/(<\/)([a-zA-Z_$][.\w]*)(>)/, ['keyword',
+      [/(<\/)([a-zA-Z_$][.\w$]*)(>)/, ['keyword',
         {
           cases: {
             '$2==$S2': 'constant',
