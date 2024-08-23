@@ -11,6 +11,7 @@
  * 4. Highlight function/class names
  * 5. Highlight var/let/const names
  * 6. Highlight new Foo
+ * 7. Highlight function/method calls
  * 
  */
 
@@ -108,14 +109,23 @@ export const tokenProvider = {
     common: [
 
       // identifiers and keywords
-      [/#?[a-z_$][\w$]*/, {
-        cases: {
-          '@ctrlKeywords': 'keyword.flow',
-          '@keywords': 'keyword',
-          '@default': 'identifier',
-        }
-      }],
-      [/[A-Z][\w\$]*/, 'type.identifier'],
+      [/(#?[a-zA-Z_$][\w$]*)([<(]?)/, [
+        {
+          cases: {
+            '@ctrlKeywords': 'keyword.flow',
+            '@keywords': 'keyword',
+            '$2': 'method',
+            '$1~#?[A-Z].*': 'type.identifier',
+            '@default': 'identifier',
+          }
+        },
+        {
+          cases: {
+            '$2==<': { token: '@rematch', next: '@typeparams' },
+            '@default': '@rematch',
+          }
+        },
+      ]],
 
       // whitespace
       { include: '@whitespace' },
