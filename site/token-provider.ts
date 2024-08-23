@@ -34,6 +34,7 @@ export const tokenProvider = {
   ctrlKeywords: [
     'export', 'default', 'return', 'as', 'if', 'break', 'case', 'catch', 'continue',
     'do', 'else', 'finally', 'for', 'throw', 'try', 'with', 'yield', 'await',
+    'import', 'from', 'type',
   ],
 
   keywords: [
@@ -42,13 +43,13 @@ export const tokenProvider = {
     'abstract', 'any', 'asserts', 'bigint', 'boolean',
     'class', 'const', 'constructor', 'debugger',
     'declare', 'delete', 'enum',
-    'extends', 'false', 'from', 'function', 'get',
-    'implements', 'import', 'in', 'infer', 'instanceof', 'interface',
+    'extends', 'false', 'function', 'get',
+    'implements', 'in', 'infer', 'instanceof', 'interface',
     'is', 'keyof', 'let', 'module', 'namespace', 'never', 'new',
     'null', 'number', 'object', 'out', 'package', 'private', 'protected',
     'public', 'override', 'readonly', 'require', 'global', 'satisfies',
     'set', 'static', 'string', 'super', 'switch', 'symbol', 'this',
-    'true', 'type', 'typeof', 'undefined', 'unique',
+    'true', 'typeof', 'undefined', 'unique',
     'unknown', 'var', 'void', 'while', 'async', 'of'
   ],
 
