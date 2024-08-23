@@ -12,6 +12,7 @@
  * 5. Highlight var/let/const names
  * 6. Highlight new Foo
  * 7. Highlight function/method calls
+ * 8. Highlight JSX
  * 
  */
 
@@ -76,12 +77,12 @@ export const tokenProvider = {
     root: [
       [/}/, {
         cases: {
-          '$S2==INJSX': { token: 'invalid', bracket: '@close', next: '@pop' },
+          '$S2==INJSX': { token: '@brackets', bracket: '@close', next: '@pop' },
           '@default': '@brackets',
         }
       }],
 
-      [/[{}]/, 'delimiter.bracket'],
+      [/{/, 'delimiter.bracket'],
 
       // highlight class field-properties
       [/^\s+#?[\w$]+(?=\s*[;=:])/, 'variable.property'],
@@ -116,8 +117,8 @@ export const tokenProvider = {
     ],
 
     jsxReady: [
-      [/<>/, 'keyword', '@jsxText.FRAGMENT'],
-      [/(<)([a-zA-Z_$][.\w$]*)/, ['keyword', {
+      [/<>/, 'delimiter.html', '@jsxText.FRAGMENT'],
+      [/(<)([a-zA-Z_$][.\w$]*)/, ['delimiter.html', {
         cases: {
           '[A-Z].*': { token: 'type.identifier', next: '@jsxOpen.$2' },
           '': { token: 'constant', next: '@jsxOpen.$2' },
@@ -126,25 +127,25 @@ export const tokenProvider = {
     ],
 
     jsxOpen: [
-      [/>/, { token: 'keyword', switchTo: '@jsxText.$S2' }],
-      [/\/>/, { token: 'keyword', next: '@pop' }],
+      [/>/, { token: 'delimiter.html', switchTo: '@jsxText.$S2' }],
+      [/\/>/, { token: 'delimiter.html', next: '@pop' }],
       [/ +([\w-$]+)/, 'attribute.name'],
-      [/(=)(')/, ['keyword', { token: 'string', next: '@string_single' }]],
-      [/(=)(")/, ['keyword', { token: 'string', next: '@string_double' }]],
-      [/(=)({)/, ['keyword', { token: 'keyword', next: '@root.INJSX', bracket: '@open' }]],
+      [/(=)(')/, ['delimiter', { token: 'string', next: '@string_single' }]],
+      [/(=)(")/, ['delimiter', { token: 'string', next: '@string_double' }]],
+      [/(=)({)/, ['delimiter', { token: '@brackets', next: '@root.INJSX', bracket: '@open' }]],
     ],
 
     jsxText: [
       [/{/, { token: 'keyword', next: '@root.INJSX', bracket: '@open' }],
       [/<\/>/, {
         cases: {
-          '$S2==FRAGMENT': { token: 'keyword', next: '@pop' },
+          '$S2==FRAGMENT': { token: 'delimiter.html', next: '@pop' },
           '@default': { token: 'invalid', next: '@pop' },
         }
       }],
       [/(<\/)([a-zA-Z_$][.\w$]*)(>)/, {
         cases: {
-          '$2==$S2': ['keyword', 'constant', { token: 'keyword', next: '@pop' }],
+          '$2==$S2': ['delimiter.html', 'constant', { token: 'delimiter.html', next: '@pop' }],
           '@default': { token: 'invalid', next: '@pop' },
         }
       }
