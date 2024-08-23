@@ -114,8 +114,8 @@ export const tokenProvider = {
           cases: {
             '@ctrlKeywords': 'keyword.flow',
             '@keywords': 'keyword',
-            '$2': 'method',
             '$1~#?[A-Z].*': 'type.identifier',
+            '$2': 'method',
             '@default': 'identifier',
           }
         },
