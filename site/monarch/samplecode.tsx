@@ -11,6 +11,11 @@ var foo3 = 3;
 
 foo3 = foo2 = foo1;
 
+let foo4: <T extends {}>() => any;
+foo4 = <T,>() => 1;
+foo4 = <T,>() => { };
+foo4 = <T,>() => null;
+
 (function () { const foo = 3; })();
 (class { bar = 4; });
 
