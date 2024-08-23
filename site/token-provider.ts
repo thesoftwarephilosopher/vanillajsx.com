@@ -77,7 +77,7 @@ export const tokenProvider = {
       [/[{}]/, 'delimiter.bracket'],
 
       // highlight class field-properties
-      [/^\s*#?[\w$]+(?=\s*[;=:])/, 'variable.property'],
+      [/^\s+#?[\w$]+(?=\s*[;=:])/, 'variable.property'],
 
       // highlight function/class defs
       [/(function|class|new)(\s+)(#?[\w$]+)(\s*)([<(]?)/, ['keyword', '',

@@ -5,6 +5,12 @@ function foo$<K, V, T extends Map<K, V>>(): Required<ReturnType<T['clear']>> {
   return null as any;
 }
 
+const foo1 = 3;
+let foo2 = 3;
+var foo3 = 3;
+
+foo3 = foo2 = foo1;
+
 (function () { const foo = 3; })();
 (class { bar = 4; });
 
