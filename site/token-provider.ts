@@ -78,7 +78,7 @@ export const tokenProvider = {
     root: [
       [/}/, {
         cases: {
-          '$S2==INJSX': { token: '@brackets', bracket: '@close', next: '@pop' },
+          '$S2==INJSX': { token: '@brackets', next: '@pop' },
           '@default': '@brackets',
         }
       }],
@@ -203,7 +203,7 @@ export const tokenProvider = {
       [/ +([\w-$]+)/, 'attribute.name'],
       [/(=)(')/, ['delimiter', { token: 'string', next: '@string_single' }]],
       [/(=)(")/, ['delimiter', { token: 'string', next: '@string_double' }]],
-      [/(=)({)/, ['delimiter', { token: '@brackets', next: '@root.INJSX', bracket: '@open' }]],
+      [/(=)({)/, ['delimiter', { token: '@brackets', next: '@root.INJSX' }]],
     ],
 
     jsxText: [
