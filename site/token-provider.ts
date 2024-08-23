@@ -145,7 +145,12 @@ export const tokenProvider = {
       }],
       [/(<\/)([a-zA-Z_$][.\w$]*)(>)/, {
         cases: {
-          '$2==$S2': ['delimiter.html', 'constant', { token: 'delimiter.html', next: '@pop' }],
+          '$2==$S2': ['delimiter.html', {
+            cases: {
+              '[A-Z].*': 'type.identifier',
+              '@default': 'constant',
+            }
+          }, { token: 'delimiter.html', next: '@pop' }],
           '@default': { token: 'invalid', next: '@pop' },
         }
       }

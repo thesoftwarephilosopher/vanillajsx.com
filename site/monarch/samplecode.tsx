@@ -67,7 +67,9 @@ export const sample3 = () => {
   list.add('foo');
   list.add('bar');
   return <>
-    <TodoInput add={(v) => list.add(v)} />
+    <TodoInput add={(v) => list.add(v)}>
+      <TodoInput add={(v) => list.add(v)} />
+    </TodoInput>
     {list.ul}
   </>;
 };
