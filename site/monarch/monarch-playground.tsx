@@ -26,7 +26,6 @@ document.getElementById('root')?.append(<>
 </>);
 
 const status = <div style='opacity:0.5' /> as HTMLDivElement;
-
 document.body.append(status);
 
 const editor1 = monaco.editor.create(editorContainer1, {
@@ -57,13 +56,20 @@ const editor2 = monaco.editor.create(editorContainer2, {
   tabSize: 2,
 });
 
-editor1.layout({ width: 900, height: 1200 });
-editor2.layout({ width: 900, height: 1200 });
+layout();
+window.onresize = throttle(200, layout);
 
-_updateTokenProvider();
-editor1.onDidChangeModelContent(throttle(200, _updateTokenProvider));
+function layout() {
+  const width = (window.innerWidth / 2) - 50;
+  const height = window.innerHeight - 75;
+  editor1.layout({ width, height });
+  editor2.layout({ width, height });
+}
 
-async function _updateTokenProvider() {
+updateTokenProvider();
+editor1.onDidChangeModelContent(throttle(200, updateTokenProvider));
+
+async function updateTokenProvider() {
   const code = editor1.getModel()!.getValue();
   const blob = new Blob([code], { type: 'text/javascript' });
   const url = URL.createObjectURL(blob);
