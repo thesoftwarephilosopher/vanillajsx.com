@@ -15,6 +15,7 @@ let foo4: <T extends {}>() => any;
 foo4 = <T,>() => 1;
 foo4 = <T,>() => { };
 foo4 = <T,>() => null;
+foo4();
 
 (function () { const foo = 3; })();
 (class { bar = 4; });
