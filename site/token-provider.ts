@@ -30,6 +30,10 @@ export const tokenProvider = {
   defaultToken: 'invalid',
   tokenPostfix: '.ts',
 
+  typeKeywords: [
+    'any', 'bigint', 'boolean', 'number', 'object', 'string', 'unknown', 'void',
+  ],
+
   ctrlKeywords: [
     'export', 'default', 'return', 'as', 'if', 'break', 'case', 'catch', 'continue',
     'do', 'else', 'finally', 'for', 'throw', 'try', 'with', 'yield', 'await',
@@ -39,17 +43,17 @@ export const tokenProvider = {
   keywords: [
     // Should match the keys of textToKeywordObj in
     // https://github.com/microsoft/TypeScript/blob/master/src/compiler/scanner.ts
-    'abstract', 'any', 'asserts', 'bigint', 'boolean',
+    'abstract', 'asserts',
     'class', 'const', 'constructor', 'debugger',
     'declare', 'delete', 'enum',
     'extends', 'false', 'function', 'get',
     'implements', 'in', 'infer', 'instanceof', 'interface',
     'is', 'keyof', 'let', 'module', 'namespace', 'never', 'new',
-    'null', 'number', 'object', 'out', 'package', 'private', 'protected',
+    'null', 'out', 'package', 'private', 'protected',
     'public', 'override', 'readonly', 'require', 'global', 'satisfies',
-    'set', 'static', 'string', 'super', 'switch', 'symbol', 'this',
+    'set', 'static', 'super', 'switch', 'symbol', 'this',
     'true', 'typeof', 'undefined', 'unique',
-    'unknown', 'var', 'void', 'while', 'async', 'of'
+    'var', 'while', 'async', 'of'
   ],
 
   operators: [
@@ -122,6 +126,7 @@ export const tokenProvider = {
       [/(#?[a-zA-Z_$][\w$]*)([<(]?)/, [
         {
           cases: {
+            '@typeKeywords': 'type.identifier',
             '@ctrlKeywords': 'keyword.flow',
             '@keywords': 'keyword',
             '$1~#?[A-Z].*': 'type.identifier',
