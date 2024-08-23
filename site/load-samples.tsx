@@ -1,5 +1,4 @@
 import monaco from '@imlib/monaco-esm';
-import type monacoTypes from 'monaco-editor';
 import { jsxlib } from './jsxlib.js';
 import { setupTheme } from './theme.js';
 import { rules, tokenProvider } from './token-provider.js';
@@ -13,7 +12,7 @@ monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
 
 setupTheme(rules);
 
-monaco.languages.setMonarchTokensProvider('typescript', tokenProvider as monacoTypes.languages.IMonarchLanguage);
+monaco.languages.setMonarchTokensProvider('typescript', tokenProvider as monaco.languages.IMonarchLanguage);
 
 for (const sample of document.querySelectorAll<HTMLElement>('.sample')) {
   const code = sample.querySelector('.sample-code>pre')!.textContent!.trim();

@@ -1,7 +1,6 @@
 import monaco from '@imlib/monaco-esm';
-import monacoTypes from 'monaco-editor';
 
-export function setupTheme(rules: monacoTypes.editor.ITokenThemeRule[]) {
+export function setupTheme(rules: monaco.editor.ITokenThemeRule[]) {
   monaco.editor.defineTheme('vsc2', {
     base: 'vs-dark',
     inherit: true,

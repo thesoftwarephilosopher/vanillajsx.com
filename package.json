@@ -7,7 +7,7 @@
     "@imlib/core": "^2.5.3"
   },
   "devDependencies": {
-    "@imlib/monaco-esm": "^0.0.2",
+    "@imlib/monaco-esm": "^0.0.3",
     "@shikijs/monaco": "^1.14.1",
     "@types/babel__standalone": "^7.1.7",
     "@types/node": "^22.2.0",
