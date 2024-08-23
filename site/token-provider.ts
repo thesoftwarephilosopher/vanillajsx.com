@@ -17,9 +17,8 @@
  */
 
 export const rules = [
-  // { token: "identifier.ts", foreground: "9CDCFE" },
+  { token: "identifier.ts", foreground: "9CDCFE" },
   { token: "variable.property.ts", foreground: "9CDCFE" },
-  // { token: "function.ts", foreground: "DCDCAA" },
   { token: "constant.ts", foreground: "4FC1FF" },
   { token: "variable.ts", foreground: "9CDCFE" },
   { token: "method.ts", foreground: "DCDCAA" },
@@ -196,8 +195,8 @@ export const tokenProvider = {
 
     jsxIdent: [
       [/\./, { token: 'delimiter', switchTo: '$S0^' }],
-      [/[A-Z][\w$]*/, { token: 'type.delimiter', switchTo: '$S0$0' }],
-      [/[\w$]+/, { token: 'constant', switchTo: '$S0$0' }],
+      [/[A-Z][\w$]*/, { token: 'type.identifier', switchTo: '$S0$0' }],
+      [/[\w$]+/, { token: 'tag', switchTo: '$S0$0' }],
       [/.+/, { token: '@rematch', switchTo: '@$S2.$S3.$S4' }],
     ],
 
