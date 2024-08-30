@@ -207,7 +207,7 @@ export const tokenProvider = {
     jsxIdent: [
       [/\./, { token: 'delimiter', switchTo: '$S0^' }],
       [/[A-Z][\w$]*/, { token: 'type.identifier', switchTo: '$S0$0' }],
-      [/[\w$]+/, { token: 'tag', switchTo: '$S0$0' }],
+      [/[\w$-]+/, { token: 'tag', switchTo: '$S0$0' }],
       [/.+/, { token: '@rematch', switchTo: '@$S2.$S3.$S4' }],
     ],
 
