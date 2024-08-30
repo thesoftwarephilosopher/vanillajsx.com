@@ -25,7 +25,7 @@ body {
 
       > * {
         flex: 1 1 50%;
-        height: 24em;
+        height: 30em;
         padding: 1em;
         border-radius: 7px;
         background-color: #1b1f25;
