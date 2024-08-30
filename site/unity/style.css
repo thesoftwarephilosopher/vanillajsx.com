@@ -1,0 +1,37 @@
+body {
+  background-color: #22272e;
+  color: #c5d1de;
+  font-family: system-ui;
+
+  main {
+
+    a {
+      text-decoration: underline;
+      color: #478be6;
+      text-underline-offset: 3px;
+      transition: text-underline-offset 200ms ease-in-out;
+    }
+
+    a:hover {
+      text-underline-offset: 5px;
+    }
+
+    margin: 0 auto;
+    width: clamp(20em, 60em, 90%);
+
+    #editors1 {
+      display: flex;
+      gap: 1em;
+
+      > * {
+        flex: 1 1 50%;
+        height: 24em;
+        padding: 1em;
+        border-radius: 7px;
+        background-color: #1b1f25;
+      }
+    }
+
+  }
+
+}
