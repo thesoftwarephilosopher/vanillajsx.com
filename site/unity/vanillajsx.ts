@@ -51,7 +51,7 @@ export const babelPluginVanillaJSX: babel.PluginItem = {
             else if (attr.value.type === 'StringLiteral') val = t.stringLiteral(attr.value.value);
             else if (attr.value.type === 'JSXElement') val = attr.value;
             else if (attr.value.type === 'JSXFragment') val = attr.value;
-            else if (attr.value.expression.type === 'JSXEmptyExpression') throw new Error();
+            else if (attr.value.expression.type === 'JSXEmptyExpression') throw new Error('impossible?');
             else val = attr.value.expression;
 
             return t.objectProperty(name, val);
