@@ -212,6 +212,7 @@ export const tokenProvider = {
     ],
 
     jsxOpen: [
+      [/{/, { token: 'keyword', next: '@root.INJSX', bracket: '@open' }],
       [/>/, { token: 'delimiter.html', switchTo: '@jsxText.$S2' }],
       [/\/>/, { token: 'delimiter.html', next: '@pop' }],
       [/ +([\w-$]+)/, 'attribute.name'],
