@@ -4,27 +4,11 @@ import { setupTheme } from '../theme.js';
 import { rules, tokenProvider } from '../token-provider.js';
 import { babelPluginVanillaJSX } from './vanillajsx.js';
 
-monaco.languages.typescript.javascriptDefaults.addExtraLib(`
-declare namespace JSX {
-
-  type Element = {
-    jsx: string | any,
-    children: any[],
-    [attr: string]: any,
-  };
-
-}`.trim(), `ts:filename/jsx.d.ts`);
-
-monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
-  jsx: monaco.languages.typescript.JsxEmit.ReactNative,
-  target: monaco.languages.typescript.ScriptTarget.ESNext,
-});
-
 setupTheme(rules);
 
 setTimeout(() => {
   monaco.languages.setMonarchTokensProvider('javascript', tokenProvider as any);
-}, 1000);
+}, 333);
 
 const file1 = await fetch('/unity/samplecode.jsx').then(res => res.text());
 
