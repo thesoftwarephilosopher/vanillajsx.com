@@ -5,15 +5,15 @@ body {
 
   main {
 
-    a {
+    > ol > li > a {
       text-decoration: underline;
       color: #478be6;
       text-underline-offset: 3px;
       transition: text-underline-offset 200ms ease-in-out;
-    }
 
-    a:hover {
-      text-underline-offset: 5px;
+      &:hover {
+        text-underline-offset: 5px;
+      }
     }
 
     margin: 0 auto;
