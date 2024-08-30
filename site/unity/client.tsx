@@ -12,8 +12,8 @@ setTimeout(() => {
 
 const file1 = await fetch('/unity/samplecode.jsx').then(res => res.text());
 
-const model1 = monaco.editor.createModel(file1, 'javascript', monaco.Uri.parse('ts:f/file1.jsx'));
-const model2 = monaco.editor.createModel('', 'javascript', monaco.Uri.parse('ts:f/file2.jsx'));
+const model1 = monaco.editor.createModel(file1, 'javascript', monaco.Uri.parse('ts:filename/file1.jsx'));
+const model2 = monaco.editor.createModel('', 'javascript', monaco.Uri.parse('ts:filename/file2.jsx'));
 
 const editorContainer1 = <div /> as HTMLDivElement;
 const editorContainer2 = <div /> as HTMLDivElement;
