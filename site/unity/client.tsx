@@ -4,6 +4,20 @@ import { setupTheme } from '../theme.js';
 import { rules, tokenProvider } from '../token-provider.js';
 import { babelPluginVanillaJSX } from './vanillajsx.js';
 
+monaco.languages.typescript.javascriptDefaults.addExtraLib(`
+declare namespace JSX {
+
+  const jsx: unique symbol;
+
+  type Element = {
+    [jsx]: string | any,
+    children: any[],
+    [attr: string]: any,
+  };
+
+}
+`.trim(), `ts:filename/jsx.d.ts`);
+
 setupTheme(rules);
 
 setTimeout(() => {
