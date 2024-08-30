@@ -71,7 +71,7 @@ const editor2 = monaco.editor.create(editorContainer2, {
 });
 
 transformJsxInSecondEditor();
-editor1.onDidChangeModelContent(throttle(200, transformJsxInSecondEditor));
+editor1.onDidChangeModelContent(throttle(20, transformJsxInSecondEditor));
 
 async function transformJsxInSecondEditor() {
   const code = model1.getValue();
