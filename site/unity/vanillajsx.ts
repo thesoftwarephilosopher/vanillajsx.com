@@ -103,11 +103,9 @@ function pushChildren(attrs: babel.types.ObjectExpression, path: babel.NodePath<
       continue;
     }
     if (c.type === 'JSXExpressionContainer') {
-      if (c.expression.type === 'JSXEmptyExpression') {
-        children.push(t.stringLiteral(''));
-        continue;
+      if (c.expression.type !== 'JSXEmptyExpression') {
+        children.push(c.expression);
       }
-      children.push(c.expression);
       continue;
     }
 
