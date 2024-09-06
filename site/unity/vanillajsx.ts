@@ -118,7 +118,7 @@ function pushChildren(parent: babel.types.ObjectExpression, path: babel.NodePath
       parent.properties.push(t.objectProperty(t.identifier("children"), child.argument));
     }
     else {
-      parent.properties.push(t.objectProperty(t.identifier("children"), child));
+      parent.properties.push(t.objectProperty(t.identifier("child"), child));
     }
   }
   else if (children.length > 0) {
