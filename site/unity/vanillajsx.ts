@@ -73,30 +73,11 @@ function pushChildren(parent: babel.types.ObjectExpression, path: babel.NodePath
   const children: (babel.types.Expression | babel.types.SpreadElement)[] = [];
 
   for (const c of path.node.children) {
-    if (c.type === 'JSXElement') {
-      children.push(c);
-      continue;
-    }
-    if (c.type === 'JSXFragment') {
-      children.push(c);
-      continue;
-    }
-    if (c.type === 'JSXSpreadChild') {
-      children.push(t.spreadElement(c.expression));
-      continue;
-    }
-    if (c.type === 'JSXText') {
-      children.push(t.stringLiteral(c.value));
-      continue;
-    }
-    if (c.type === 'JSXExpressionContainer') {
-      if (c.expression.type !== 'JSXEmptyExpression') {
-        children.push(c.expression);
-      }
-      continue;
-    }
-
-    throw new Error();
+    if (c.type === 'JSXElement') children.push(c);
+    else if (c.type === 'JSXFragment') children.push(c);
+    else if (c.type === 'JSXSpreadChild') children.push(t.spreadElement(c.expression));
+    else if (c.type === 'JSXText') children.push(t.stringLiteral(c.value));
+    else if (c.expression.type !== 'JSXEmptyExpression') children.push(c.expression);
   }
 
   if (children.length === 1) {
