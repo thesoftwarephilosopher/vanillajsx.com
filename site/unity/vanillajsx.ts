@@ -26,7 +26,7 @@ export const babelPluginVanillaJSX: babel.PluginItem = {
           else if (child.type === 'JSXExpressionContainer' || child.type === 'JSXSpreadChild')
             path.replaceWith(child.expression);
           else if (child.type === 'JSXText')
-            path.replaceWith(t.stringLiteral(child.value));
+            path.replaceWith(t.stringLiteral(trimJsxWhitespace(child.value)));
           return;
         }
 
@@ -99,7 +99,7 @@ function pushChildren(parent: babel.types.ObjectExpression, path: babel.NodePath
     if (c.type === 'JSXElement') children.push(c);
     else if (c.type === 'JSXFragment') children.push(c);
     else if (c.type === 'JSXSpreadChild') children.push(t.spreadElement(c.expression));
-    else if (c.type === 'JSXText') children.push(t.stringLiteral(c.value));
+    else if (c.type === 'JSXText') children.push(t.stringLiteral(trimJsxWhitespace(c.value)));
     else if (c.expression.type !== 'JSXEmptyExpression') children.push(c.expression);
   }
 
@@ -124,4 +124,11 @@ function convertMember(v: babel.types.JSXMemberExpression): babel.types.MemberEx
       : convertMember(v.object)),
     t.identifier(v.property.name)
   );
+}
+
+function trimJsxWhitespace(str: string): string {
+  return (str
+    .replace(/^ *\n+ */mg, '')
+    .replace(/ *\n+ *$/mg, '')
+    .replace(/ *\n+ */mg, ' '));
 }
