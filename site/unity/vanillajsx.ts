@@ -27,10 +27,14 @@ export const babelPluginVanillaJSX: babel.PluginItem = {
         let name;
         const v = path.node.openingElement.name;
 
-        if (v.type === 'JSXMemberExpression') name = convertMember(v);
-        else if (v.type === 'JSXNamespacedName') name = t.stringLiteral(v.namespace.name + ':' + v.name.name);
-        else if (v.name.match(/^[A-Z]/)) name = t.identifier(v.name);
-        else name = t.stringLiteral(v.name);
+        if (v.type === 'JSXMemberExpression')
+          name = convertMember(v);
+        else if (v.type === 'JSXNamespacedName')
+          name = t.stringLiteral(v.namespace.name + ':' + v.name.name);
+        else if (v.name.match(/^[A-Z]/))
+          name = t.identifier(v.name);
+        else
+          name = t.stringLiteral(v.name);
 
         const jsx = t.objectExpression([
           t.objectProperty(jsxSymbol, name, true),
@@ -43,23 +47,23 @@ export const babelPluginVanillaJSX: babel.PluginItem = {
               continue;
             }
 
-            let name;
+            let key;
             if (attr.name.type === 'JSXNamespacedName')
-              name = t.stringLiteral(attr.name.namespace.name + ':' + attr.name.name.name);//lol
+              key = t.stringLiteral(attr.name.namespace.name + ':' + attr.name.name.name);//lol
             else if (attr.name.name.match(/[^\w]/))
-              name = t.stringLiteral(attr.name.name);
+              key = t.stringLiteral(attr.name.name);
             else
-              name = t.identifier(attr.name.name);
+              key = t.identifier(attr.name.name);
 
             let val;
             if (!attr.value) val = t.booleanLiteral(true);
             else if (attr.value.type === 'StringLiteral') val = t.stringLiteral(attr.value.value);
             else if (attr.value.type === 'JSXElement') val = attr.value;
             else if (attr.value.type === 'JSXFragment') val = attr.value;
-            else if (attr.value.expression.type === 'JSXEmptyExpression') throw new Error('impossible?');
+            else if (attr.value.expression.type === 'JSXEmptyExpression') throw val = t.booleanLiteral(true);
             else val = attr.value.expression;
 
-            jsx.properties.push(t.objectProperty(name, val));
+            jsx.properties.push(t.objectProperty(key, val));
           }
         }
         pushChildren(jsx, path);
