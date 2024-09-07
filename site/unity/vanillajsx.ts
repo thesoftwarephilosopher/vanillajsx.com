@@ -15,6 +15,17 @@ export const babelPluginVanillaJSX: babel.PluginItem = {
   visitor: {
     JSXFragment: {
       enter: (path) => {
+        if (path.node.children.length === 1) {
+          const child = path.node.children[0]!;
+          if (child.type === 'JSXElement' || child.type === 'JSXFragment')
+            path.replaceWith(child);
+          else if (child.type === 'JSXExpressionContainer' || child.type === 'JSXSpreadChild')
+            path.replaceWith(child.expression);
+          else if (child.type === 'JSXText')
+            path.replaceWith(t.stringLiteral(child.value));
+          return;
+        }
+
         const jsx = t.objectExpression([
           t.objectProperty(jsxSymbol, t.stringLiteral(''), true),
         ]);
