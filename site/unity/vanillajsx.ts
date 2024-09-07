@@ -91,6 +91,8 @@ export const babelPluginVanillaJSX: babel.PluginItem = {
 };
 
 function pushChildren(parent: babel.types.ObjectExpression, path: babel.NodePath<babel.types.JSXFragment | babel.types.JSXElement>) {
+  if (path.node.children.length === 0) return;
+
   const children: (babel.types.Expression | babel.types.SpreadElement)[] = [];
 
   for (const c of path.node.children) {
