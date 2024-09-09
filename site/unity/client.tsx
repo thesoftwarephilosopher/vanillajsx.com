@@ -4,6 +4,10 @@ import { setupTheme } from '../theme.js';
 import { rules, tokenProvider } from '../token-provider.js';
 import { babelPluginVanillaJSX } from './vanillajsx.js';
 
+monaco.languages.onLanguageEncountered('javascript', () => {
+  monaco.languages.setMonarchTokensProvider('javascript', tokenProvider as monaco.languages.IMonarchLanguage);
+});
+
 monaco.languages.typescript.javascriptDefaults.addExtraLib(`
 declare namespace JSX {
 
@@ -24,9 +28,6 @@ const file1 = await fetch('/unity/samplecode.jsx').then(res => res.text());
 
 const model1 = monaco.editor.createModel(file1, 'javascript', monaco.Uri.parse('ts:filename/file1.jsx'));
 const model2 = monaco.editor.createModel('', 'javascript', monaco.Uri.parse('ts:filename/file2.jsx'));
-
-await monaco.languages.typescript.getJavaScriptWorker();
-monaco.languages.setMonarchTokensProvider('javascript', tokenProvider as any);
 
 const editorContainer1 = <div /> as HTMLDivElement;
 const editorContainer2 = <div /> as HTMLDivElement;
