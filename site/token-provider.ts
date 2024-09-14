@@ -199,7 +199,7 @@ export const tokenProvider = {
     jsxReady: [
       [/<>/, 'delimiter.html', '@jsxText.FRAGMENT'],
       [/(<)([A-Z][\w$]*\s*(?:,|extends|implements))/, ['@brackets', { token: '@rematch', next: '@typeparams' }]],
-      [/(<)(\s*)([\w$])/, ['delimiter.html', '',
+      [/(<)([a-zA-Z$])/, ['delimiter.html',
         { token: '@rematch', next: '@jsxIdent.jsxOpen.' },
       ]],
     ],
