@@ -67,6 +67,7 @@ function layout() {
 }
 
 updateTokenProvider();
+monaco.languages.onLanguageEncountered('typescript', updateTokenProvider);
 editor1.onDidChangeModelContent(throttle(200, updateTokenProvider));
 
 async function updateTokenProvider() {
